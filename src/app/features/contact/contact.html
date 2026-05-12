@@ -1,1 +1,204 @@
-<p>contact works!</p>
+<!-- ── Page Banner ────────────────────────────────────────────────────────── -->
+<section class="contact-banner" aria-labelledby="contact-page-heading">
+  <div class="container contact-banner__inner">
+    <p class="section-label">Reach Out</p>
+    <h1 id="contact-page-heading">Contact</h1>
+    <p class="contact-banner__sub">
+      Questions, collaborations, or anything else — this is the place.
+    </p>
+  </div>
+</section>
+
+<!-- ── Body ──────────────────────────────────────────────────────────────── -->
+<section class="section contact-body" aria-label="Contact information and form">
+  <div class="container contact-body__grid">
+
+    <!-- ── Info Column ─────────────────────────────────────────────────── -->
+    <aside class="contact-info" aria-label="Studio contact details">
+
+      <div class="contact-info__block">
+        <h2 class="contact-info__heading">Booking Inquiries</h2>
+        <p>
+          Looking to get tattooed? Use the booking form — it gives KC
+          the details needed to get back to you faster.
+        </p>
+        <a class="btn btn-primary" routerLink="/booking">Go to Booking</a>
+      </div>
+
+      <div class="contact-info__block">
+        <h2 class="contact-info__heading">Studio</h2>
+        <p class="contact-info__detail">
+          <span class="contact-info__detail-label">Location</span>
+          Flying Tiger Tattoo<br />
+          Pflugerville, TX
+        </p>
+        <p class="contact-info__detail">
+          <span class="contact-info__detail-label">Hours</span>
+          [Placeholder — studio hours]
+        </p>
+      </div>
+
+      <div class="contact-info__block">
+        <h2 class="contact-info__heading">Follow Along</h2>
+        <ul class="contact-info__links" role="list">
+          <li>
+            <a
+              href="https://instagram.com/baelstattoos"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-info__social"
+              aria-label="KC Baels on Instagram (opens in new tab)"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              &#64;baelstattoos
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://instagram.com/flyingtigertattooatx"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-info__social"
+              aria-label="Flying Tiger Tattoo on Instagram (opens in new tab)"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              &#64;flyingtigertattooatx
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <!-- ── Form Column ─────────────────────────────────────────────────── -->
+    <div class="contact-form-col">
+
+      @if (!submitted()) {
+
+        <app-section-header label="Send a Message" title="Get in Touch" />
+
+        <form
+          class="contact-form"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          aria-label="Contact form"
+        >
+
+          <div class="contact-form__row">
+
+            <div class="field">
+              <label class="field__label" for="c-name">
+                Name <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="field__input"
+                id="c-name"
+                type="text"
+                formControlName="name"
+                autocomplete="name"
+                [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched"
+                aria-describedby="c-name-error"
+              />
+              @if (form.controls.name.invalid && form.controls.name.touched) {
+                <p class="field__error" id="c-name-error" role="alert">Please enter your name.</p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="c-email">
+                Email <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="field__input"
+                id="c-email"
+                type="email"
+                formControlName="email"
+                autocomplete="email"
+                [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+                aria-describedby="c-email-error"
+              />
+              @if (form.controls.email.invalid && form.controls.email.touched) {
+                <p class="field__error" id="c-email-error" role="alert">Please enter a valid email address.</p>
+              }
+            </div>
+
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="c-topic">
+              Topic <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <select
+              class="field__input field__input--select"
+              id="c-topic"
+              formControlName="topic"
+              [attr.aria-invalid]="form.controls.topic.invalid && form.controls.topic.touched"
+              aria-describedby="c-topic-error"
+            >
+              <option value="" disabled>Select a topic</option>
+              @for (t of topics; track t) {
+                <option [value]="t">{{ t }}</option>
+              }
+            </select>
+            @if (form.controls.topic.invalid && form.controls.topic.touched) {
+              <p class="field__error" id="c-topic-error" role="alert">Please select a topic.</p>
+            }
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="c-message">
+              Message <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <textarea
+              class="field__input field__input--textarea"
+              id="c-message"
+              formControlName="message"
+              rows="6"
+              [attr.aria-invalid]="form.controls.message.invalid && form.controls.message.touched"
+              aria-describedby="c-message-error"
+            ></textarea>
+            @if (form.controls.message.invalid && form.controls.message.touched) {
+              <p class="field__error" id="c-message-error" role="alert">Please enter a message.</p>
+            }
+          </div>
+
+          <div class="contact-form__footer">
+            <p class="contact-form__note">
+              Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.
+            </p>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </div>
+
+        </form>
+
+      } @else {
+
+        <div class="contact-success" role="status" aria-live="polite">
+          <div class="contact-success__icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="21"/>
+              <path d="M15 25l7 7 11-13"/>
+            </svg>
+          </div>
+          <h2 class="contact-success__title">Message Sent</h2>
+          <p class="contact-success__message">
+            Thanks for reaching out. KC will get back to you as soon as possible.
+          </p>
+          <a class="btn btn-outline" routerLink="/">Back to Home</a>
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+</section>
