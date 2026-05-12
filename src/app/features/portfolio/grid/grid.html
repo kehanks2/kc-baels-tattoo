@@ -1,0 +1,25 @@
+@if (items().length === 0) {
+  <p class="empty">No pieces in this style yet — check back soon.</p>
+} @else {
+  <div class="grid" role="list">
+    @for (item of items(); track item.id; let i = $index) {
+      <div
+        class="grid-item"
+        role="listitem"
+        tabindex="0"
+        [attr.aria-label]="'Open ' + item.alt"
+        (click)="open(i)"
+        (keydown.enter)="open(i)"
+        (keydown.space)="$event.preventDefault(); open(i)"
+      >
+        <img [ngSrc]="item.src" [alt]="item.alt" [width]="item.width" [height]="item.height" />
+        <div class="overlay" aria-hidden="true">
+          @if (item.title) {
+            <span class="overlay-title">{{ item.title }}</span>
+          }
+          <span class="overlay-category">{{ categoryLabels[item.category] }}</span>
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -1,1 +1,32 @@
-<p>portfolio works!</p>
+<section class="section portfolio-page" aria-labelledby="portfolio-heading">
+
+  <div class="container">
+    <p class="section-label">Gallery</p>
+    <h1 class="section-title" id="portfolio-heading">Portfolio</h1>
+    <p class="portfolio-intro">
+      Every piece starts with a conversation. Browse the work below, then
+      <a routerLink="/booking">book a consultation</a> to start yours.
+    </p>
+  </div>
+
+  <div class="container">
+    <app-filter
+      [active]="activeCategory()"
+      (categoryChange)="onCategoryChange($event)"
+    />
+
+    <app-grid
+      [items]="filteredItems()"
+      (itemClick)="onItemClick($event)"
+    />
+  </div>
+
+</section>
+
+@if (lightboxIndex() !== null) {
+  <app-lightbox
+    [items]="filteredItems()"
+    [startIndex]="lightboxIndex()!"
+    (closed)="onLightboxClose()"
+  />
+}

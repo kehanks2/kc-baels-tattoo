@@ -3,12 +3,14 @@
 <!-- ── Featured Work Strip ──────────────────────────────────────────────── -->
 <section class="section featured-strip" aria-labelledby="featured-heading">
   <div class="container">
-    <p class="section-label">Selected Work</p>
-    <h2 class="section-title" id="featured-heading">Recent Pieces</h2>
-    <p class="featured-strip__placeholder">
-      Portfolio gallery coming soon — drop images in
-      <code>src/assets/images/portfolio/</code> and wire up the Portfolio component.
-    </p>
+    <app-section-header label="Selected Work" title="Recent Pieces" headingId="featured-heading" />
+    <div class="featured-strip__grid">
+      @for (item of featuredItems(); track item.id) {
+        <a routerLink="/portfolio" class="featured-strip__item" [attr.aria-label]="item.alt">
+          <img [ngSrc]="item.src" [alt]="item.alt" fill />
+        </a>
+      }
+    </div>
     <div class="featured-strip__cta">
       <a class="btn btn-outline" routerLink="/portfolio">View Full Portfolio</a>
     </div>
@@ -23,8 +25,7 @@
       <div class="about-preview__image-placeholder"></div>
     </div>
     <div class="about-preview__text-col">
-      <p class="section-label">The Artist</p>
-      <h2 class="section-title" id="about-heading">KC Baels</h2>
+      <app-section-header label="The Artist" title="KC Baels" headingId="about-heading" />
       <p>
         Based in Pflugerville, TX, KC Baels creates custom tattoos rooted in
         intentional design. Every session starts with a conversation — because
@@ -38,8 +39,7 @@
 <!-- ── Booking CTA ──────────────────────────────────────────────────────── -->
 <section class="section booking-cta" aria-labelledby="booking-heading">
   <div class="container booking-cta__inner">
-    <p class="section-label">Ready?</p>
-    <h2 class="section-title" id="booking-heading">Start Your Custom Piece</h2>
+    <app-section-header label="Ready?" title="Start Your Custom Piece" headingId="booking-heading" />
     <a class="btn btn-primary" routerLink="/booking">Book an Appointment</a>
   </div>
 </section>

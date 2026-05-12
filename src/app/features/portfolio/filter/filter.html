@@ -1,0 +1,13 @@
+<nav class="filter-bar" role="tablist" aria-label="Filter portfolio by style">
+  @for (option of options; track option.value) {
+    <button
+      role="tab"
+      class="filter-btn"
+      [class.active]="active() === option.value"
+      [attr.aria-selected]="active() === option.value"
+      (click)="select(option.value)"
+    >
+      {{ option.label }}
+    </button>
+  }
+</nav>
