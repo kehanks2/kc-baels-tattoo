@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header';
+import { BookingService } from '../../core/services/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -12,8 +13,11 @@ import { SectionHeaderComponent } from '../../shared/ui/section-header/section-h
 })
 export class BookingComponent {
   private readonly fb = inject(FormBuilder);
+  private readonly bookingService = inject(BookingService);
 
   readonly submitted    = signal(false);
+  readonly submitting   = signal(false);
+  readonly error        = signal<string | null>(null);
   readonly selectedFiles = signal<File[]>([]);
   readonly fileError    = signal<string | null>(null);
 
@@ -76,7 +80,19 @@ export class BookingComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // TODO: POST to backend API (include this.selectedFiles())
-    this.submitted.set(true);
+
+    this.submitting.set(true);
+    this.error.set(null);
+
+    this.bookingService.submit(this.form.getRawValue()).subscribe({
+      next: () => {
+        this.submitted.set(true);
+        this.submitting.set(false);
+      },
+      error: () => {
+        this.error.set('Something went wrong. Please try again or reach out directly.');
+        this.submitting.set(false);
+      },
+    });
   }
 }

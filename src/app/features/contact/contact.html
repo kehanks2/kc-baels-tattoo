@@ -171,11 +171,17 @@
             }
           </div>
 
+          @if (error()) {
+            <p class="form-error" role="alert">{{ error() }}</p>
+          }
+
           <div class="contact-form__footer">
             <p class="contact-form__note">
               Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.
             </p>
-            <button class="btn btn-primary" type="submit">Send Message</button>
+            <button class="btn btn-primary" type="submit" [disabled]="submitting()">
+              {{ submitting() ? 'Sending…' : 'Send Message' }}
+            </button>
           </div>
 
         </form>

@@ -294,12 +294,18 @@
           </div>
         </fieldset>
 
+        @if (error()) {
+          <p class="form-error" role="alert">{{ error() }}</p>
+        }
+
         <div class="booking-form__footer">
           <p class="booking-form__note">
             Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span>
             are required.
           </p>
-          <button class="btn btn-primary" type="submit">Submit Inquiry</button>
+          <button class="btn btn-primary" type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Submitting…' : 'Submit Inquiry' }}
+          </button>
         </div>
 
       </form>

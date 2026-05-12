@@ -210,6 +210,23 @@ button {
   }
 }
 
+// ─── Form utilities ───────────────────────────────────────────────────────────
+.form-error {
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  background-color: rgba(200, 60, 60, 0.12);
+  border: 1px solid rgba(200, 60, 60, 0.35);
+  border-radius: var(--border-radius);
+  color: #e07070;
+  font-size: 0.875rem;
+}
+
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
 // ─── Scrollbar ────────────────────────────────────────────────────────────────
 ::-webkit-scrollbar {
   width: 6px;
