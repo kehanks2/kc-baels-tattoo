@@ -45,6 +45,7 @@ export class BookingComponent {
     'Medium — 3–6"',
     'Large — 6–10"',
     'Extra Large / Full piece',
+    'Not sure yet',
   ];
 
   readonly referralSources = ['Instagram', 'Word of mouth', 'Google', 'Other'];
