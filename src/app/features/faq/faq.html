@@ -1,0 +1,74 @@
+<!-- ── Page Banner ────────────────────────────────────────────────────────── -->
+<section class="faq-banner" aria-labelledby="faq-page-heading">
+  <div class="container faq-banner__inner">
+    <p class="section-label">Common Questions</p>
+    <h1 id="faq-page-heading">FAQ</h1>
+    <p class="faq-banner__sub">Everything you need to know before booking.</p>
+  </div>
+</section>
+
+<!-- ── Accordion ─────────────────────────────────────────────────────────── -->
+<section class="section faq-body" aria-label="Frequently asked questions">
+  <div class="container faq-body__inner">
+    @for (category of categories; track category.label) {
+      <div class="faq-category">
+        <h2 class="faq-category__heading">{{ category.label }}</h2>
+        <ul class="faq-category__list" role="list">
+          @for (item of category.items; track item.id) {
+            <li class="faq-item">
+              <h3 class="faq-item__heading">
+                <button
+                  class="faq-item__trigger"
+                  [id]="'faq-btn-' + item.id"
+                  [attr.aria-expanded]="openId() === item.id"
+                  [attr.aria-controls]="'faq-panel-' + item.id"
+                  (click)="toggle(item.id)"
+                >
+                  {{ item.question }}
+                  <span
+                    class="faq-item__icon"
+                    [class.faq-item__icon--open]="openId() === item.id"
+                    aria-hidden="true"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 6l5 5 5-5"/>
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div
+                [id]="'faq-panel-' + item.id"
+                role="region"
+                [attr.aria-labelledby]="'faq-btn-' + item.id"
+                class="faq-item__body"
+                [class.faq-item__body--open]="openId() === item.id"
+              >
+                <div class="faq-item__inner">
+                  <p>{{ item.answer }}</p>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+<section class="section faq-cta" aria-labelledby="faq-cta-heading">
+  <div class="container faq-cta__inner">
+    <app-section-header
+      label="Still have questions?"
+      title="Reach Out Before You Book"
+      headingId="faq-cta-heading"
+    />
+    <p class="faq-cta__sub">
+      If something wasn't covered above, the contact form is the best place to start.
+    </p>
+    <div class="faq-cta__actions">
+      <a class="btn btn-primary" routerLink="/booking">Book an Appointment</a>
+      <a class="btn btn-outline" routerLink="/contact">Ask a Question</a>
+    </div>
+  </div>
+</section>

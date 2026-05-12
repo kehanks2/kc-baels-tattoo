@@ -1,0 +1,137 @@
+// ── Page Banner ───────────────────────────────────────────────────────────────
+.faq-banner {
+  padding-block: var(--space-3xl);
+  padding-top: calc(var(--nav-height) + var(--space-3xl));
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+
+  &__inner {
+    max-width: 720px;
+  }
+
+  &__sub {
+    margin-top: var(--space-md);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
+}
+
+// ── FAQ Body ──────────────────────────────────────────────────────────────────
+.faq-body {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    max-width: 720px;
+  }
+}
+
+// ── Category ──────────────────────────────────────────────────────────────────
+.faq-category {
+  &__heading {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+  }
+
+  &__list {
+    list-style: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+// ── Accordion Item ────────────────────────────────────────────────────────────
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+    padding: var(--space-lg) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: var(--color-accent);
+    transition: transform 0.25s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  // CSS grid trick for smooth height animation without JS measurement
+  &__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+
+    &--open {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &__inner {
+    overflow: hidden;
+
+    p {
+      padding-bottom: var(--space-lg);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+// ── CTA ───────────────────────────────────────────────────────────────────────
+.faq-cta {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  &__sub {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-top: calc(var(--space-md) * -1);
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
