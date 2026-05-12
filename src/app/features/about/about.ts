@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header';
 
 @Component({
   selector: 'app-about',
-  template: `
-    <section class="section container">
-      <p class="section-label">The Artist</p>
-      <h1 class="section-title">About KC Baels</h1>
-      <p>Bio &amp; studio story — coming soon.</p>
-    </section>
-  `,
+  imports: [RouterLink, SectionHeaderComponent],
+  templateUrl: './about.html',
+  styleUrl: './about.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {}

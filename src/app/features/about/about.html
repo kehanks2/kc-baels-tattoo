@@ -1,1 +1,98 @@
-<p>about works!</p>
+<!-- ── Page Banner ────────────────────────────────────────────────────────── -->
+<section class="about-banner" aria-labelledby="about-page-heading">
+  <div class="container about-banner__inner">
+    <p class="section-label">The Artist</p>
+    <h1 id="about-page-heading">KC Baels</h1>
+    <p class="about-banner__sub">Custom Tattoo Artist &middot; Pflugerville, TX</p>
+  </div>
+</section>
+
+<!-- ── Bio ───────────────────────────────────────────────────────────────── -->
+<section class="section about-bio" aria-labelledby="bio-heading">
+  <div class="container about-bio__grid">
+    <div class="about-bio__image-col" aria-hidden="true">
+      <!-- Replace with NgOptimizedImage once portrait asset is available -->
+      <div class="about-bio__image-placeholder"></div>
+    </div>
+    <div class="about-bio__content">
+      <app-section-header label="Background" title="About the Artist" headingId="bio-heading" />
+      <p>
+        [Placeholder — KC's background and journey into tattooing. Where they grew up,
+        how they found the craft, and what keeps them passionate about it.]
+      </p>
+      <p>
+        [Placeholder — A second paragraph about their style, their clients, and what
+        makes each piece special to them.]
+      </p>
+      <a class="btn btn-primary" routerLink="/booking">Book a Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Philosophy ────────────────────────────────────────────────────────── -->
+<section class="section about-philosophy" aria-labelledby="philosophy-heading">
+  <div class="container">
+    <app-section-header label="The Approach" title="How KC Works" headingId="philosophy-heading" />
+    <ul class="about-philosophy__pillars" role="list">
+      <li class="about-philosophy__pillar">
+        <h3>Custom from Concept</h3>
+        <p>
+          [Placeholder — Every design starts with a conversation, not a flash sheet.
+          Each piece is drawn specifically for the person wearing it.]
+        </p>
+      </li>
+      <li class="about-philosophy__pillar">
+        <h3>The Consultation Matters</h3>
+        <p>
+          [Placeholder — Before any needle touches skin, KC takes the time to
+          understand your vision, your story, and what the tattoo means to you.]
+        </p>
+      </li>
+      <li class="about-philosophy__pillar">
+        <h3>Craft Over Speed</h3>
+        <p>
+          [Placeholder — Good tattoos take time. KC prioritizes clean linework,
+          proper healing, and longevity over rushing through a session.]
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── Experience ────────────────────────────────────────────────────────── -->
+<section class="section about-experience" aria-labelledby="experience-heading">
+  <div class="container">
+    <app-section-header label="Experience" title="The Work So Far" headingId="experience-heading" />
+    <ul class="about-experience__stats" role="list">
+      <li class="about-experience__stat">
+        <span class="about-experience__number">5+</span>
+        <span class="about-experience__label">Years Tattooing</span>
+      </li>
+      <li class="about-experience__stat">
+        <span class="about-experience__number">500+</span>
+        <span class="about-experience__label">Pieces Completed</span>
+      </li>
+      <li class="about-experience__stat">
+        <span class="about-experience__number">5</span>
+        <span class="about-experience__label">Styles Mastered</span>
+      </li>
+      <li class="about-experience__stat">
+        <span class="about-experience__number">1</span>
+        <span class="about-experience__label">Studio — Flying Tiger Tattoo</span>
+      </li>
+    </ul>
+    <p class="about-experience__history">
+      [Placeholder — A short paragraph on KC's career timeline: apprenticeship,
+      first shop, key milestones, and current home at Flying Tiger Tattoo in
+      Pflugerville, TX.]
+    </p>
+  </div>
+</section>
+
+<!-- ── Booking CTA ────────────────────────────────────────────────────────── -->
+<section class="section about-cta" aria-labelledby="about-cta-heading">
+  <div class="container about-cta__inner">
+    <app-section-header label="Ready?" title="Let's Build Something Together" headingId="about-cta-heading" />
+    <a class="btn btn-primary" routerLink="/booking">Book an Appointment</a>
+  </div>
+</section>
