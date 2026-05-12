@@ -6,12 +6,11 @@ import {
   linkedSignal,
   output,
 } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { CATEGORY_LABELS, PortfolioItem } from '../../../core/models/portfolio-item.model';
 
 @Component({
   selector: 'app-lightbox',
-  imports: [NgOptimizedImage],
+  imports: [],
   templateUrl: './lightbox.html',
   styleUrl: './lightbox.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

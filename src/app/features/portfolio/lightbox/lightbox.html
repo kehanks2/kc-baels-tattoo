@@ -26,7 +26,7 @@
       <!-- Image + caption -->
       <div class="content">
         <div class="image-wrap">
-          <img [ngSrc]="item.src" [alt]="item.alt" [width]="item.width" [height]="item.height" priority />
+          <img [src]="item.src" [alt]="item.alt" />
         </div>
         <div class="caption">
           @if (item.title) {
