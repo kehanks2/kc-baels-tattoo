@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: KC Baels API
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/kcbaels}
+    username: ${DB_USER:kcbaels}
+    password: ${DB_PASS:kcbaels}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${PORT:8080}

@@ -1,0 +1,1 @@
+-- Initial schema — tables added in subsequent migrations
