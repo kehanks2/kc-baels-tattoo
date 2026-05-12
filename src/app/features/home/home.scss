@@ -48,6 +48,12 @@
     }
   }
 
+  &__image-col {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
   &__image-placeholder {
     aspect-ratio: 4 / 5;
     background-color: var(--color-bg-card);
@@ -80,5 +86,101 @@
 
   .section-title {
     max-width: 480px;
+  }
+}
+
+// ── Testimonials ──────────────────────────────────────────────────────────────
+.testimonials {
+  background-color: var(--color-bg-secondary);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    list-style: none;
+    margin-top: var(--space-xl);
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+  }
+
+  &__mark {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.4;
+    user-select: none;
+  }
+
+  &__quote {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--color-text-primary);
+    font-style: normal;
+    flex: 1;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  &__author {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--color-text-primary);
+  }
+
+  &__location {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+}
+
+// ── Instagram ─────────────────────────────────────────────────────────────────
+.instagram {
+  background-color: var(--color-bg-primary);
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
+  }
+
+  &__handle {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__sub {
+    max-width: 400px;
+    font-size: 0.95rem;
   }
 }

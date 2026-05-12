@@ -38,6 +38,24 @@
     color: var(--color-text-muted);
   }
 
+  &__studio {
+    margin-top: var(--space-sm);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--color-accent);
+        opacity: 1;
+      }
+    }
+  }
+
   &__nav {
     ul {
       list-style: none;

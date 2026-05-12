@@ -36,10 +36,47 @@
   </div>
 </section>
 
+<!-- ── Testimonials ──────────────────────────────────────────────────────── -->
+<section class="section testimonials" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <app-section-header label="Client Stories" title="What People Are Saying" headingId="testimonials-heading" />
+    <ul class="testimonials__grid" role="list">
+      @for (t of testimonials; track t.author) {
+        <li class="testimonials__card">
+          <span class="testimonials__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonials__quote">{{ t.quote }}</blockquote>
+          <footer class="testimonials__footer">
+            <span class="testimonials__author">{{ t.author }}</span>
+            <span class="testimonials__location">{{ t.location }}</span>
+          </footer>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
 <!-- ── Booking CTA ──────────────────────────────────────────────────────── -->
 <section class="section booking-cta" aria-labelledby="booking-heading">
   <div class="container booking-cta__inner">
     <app-section-header label="Ready?" title="Start Your Custom Piece" headingId="booking-heading" />
     <a class="btn btn-primary" routerLink="/booking">Book an Appointment</a>
+  </div>
+</section>
+
+<!-- ── Instagram ─────────────────────────────────────────────────────────── -->
+<section class="section instagram" aria-labelledby="instagram-heading">
+  <div class="container instagram__inner">
+    <p class="instagram__handle" aria-hidden="true">&#64;baelstattoos</p>
+    <h2 class="instagram__heading" id="instagram-heading">Follow the Journey</h2>
+    <p class="instagram__sub">Behind-the-scenes, healed work, and fresh ink — all on Instagram.</p>
+    <a
+      class="btn btn-outline"
+      href="https://instagram.com/baelstattoos"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Follow KC Baels on Instagram (opens in new tab)"
+    >
+      Follow on Instagram
+    </a>
   </div>
 </section>
