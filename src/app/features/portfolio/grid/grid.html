@@ -12,7 +12,7 @@
         (keydown.enter)="open(i)"
         (keydown.space)="$event.preventDefault(); open(i)"
       >
-        <img [ngSrc]="item.src" [alt]="item.alt" [width]="item.width" [height]="item.height" />
+        <img [ngSrc]="item.src" [alt]="item.alt" [width]="item.width" [height]="item.height" [priority]="i === 0" />
         <div class="overlay" aria-hidden="true">
           @if (item.title) {
             <span class="overlay-title">{{ item.title }}</span>
