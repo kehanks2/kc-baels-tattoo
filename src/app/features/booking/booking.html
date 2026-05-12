@@ -1,1 +1,331 @@
-<p>booking works!</p>
+<!-- ── Page Banner ────────────────────────────────────────────────────────── -->
+<section class="booking-banner" aria-labelledby="booking-page-heading">
+  <div class="container booking-banner__inner">
+    <p class="section-label">Get Started</p>
+    <h1 id="booking-page-heading">Book an Appointment</h1>
+    <p class="booking-banner__sub">
+      All bookings start with an inquiry. KC will be in touch within 2–3 business days.
+    </p>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────────────────────────────────────── -->
+<section class="section booking-process" aria-labelledby="process-heading">
+  <div class="container">
+    <h2 id="process-heading" class="sr-only">How the booking process works</h2>
+    <ol class="booking-process__steps" role="list">
+      <li class="booking-process__step">
+        <span class="booking-process__num" aria-hidden="true">01</span>
+        <h3 class="booking-process__title">Submit Your Inquiry</h3>
+        <p class="booking-process__desc">
+          Fill out the form below with your idea, style, and placement. The more detail, the better.
+        </p>
+      </li>
+      <li class="booking-process__step">
+        <span class="booking-process__num" aria-hidden="true">02</span>
+        <h3 class="booking-process__title">Free Consultation</h3>
+        <p class="booking-process__desc">
+          KC reviews your inquiry and reaches out to schedule a no-commitment consultation.
+        </p>
+      </li>
+      <li class="booking-process__step">
+        <span class="booking-process__num" aria-hidden="true">03</span>
+        <h3 class="booking-process__title">Lock In Your Session</h3>
+        <p class="booking-process__desc">
+          After the consultation, a deposit secures your date and KC begins the custom design.
+        </p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── Form / Success ─────────────────────────────────────────────────────── -->
+<section class="section booking-body" aria-label="Booking inquiry">
+  <div class="container booking-body__inner">
+
+    @if (!submitted()) {
+
+      <app-section-header label="The Details" title="Tell KC About Your Idea" />
+
+      <form
+        class="booking-form"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        novalidate
+        aria-label="Booking inquiry form"
+      >
+
+        <!-- Contact Info -->
+        <fieldset class="booking-form__group">
+          <legend class="booking-form__group-label">Contact Info</legend>
+          <div class="booking-form__row">
+
+            <div class="field">
+              <label class="field__label" for="name">
+                Full name
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="field__input"
+                id="name"
+                type="text"
+                formControlName="name"
+                autocomplete="name"
+                [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched"
+                aria-describedby="name-error"
+              />
+              @if (form.controls.name.invalid && form.controls.name.touched) {
+                <p class="field__error" id="name-error" role="alert">Please enter your full name.</p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="email">
+                Email
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="field__input"
+                id="email"
+                type="email"
+                formControlName="email"
+                autocomplete="email"
+                [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+                aria-describedby="email-error"
+              />
+              @if (form.controls.email.invalid && form.controls.email.touched) {
+                <p class="field__error" id="email-error" role="alert">Please enter a valid email address.</p>
+              }
+            </div>
+
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="phone">
+              Phone
+              <span class="field__optional">(optional)</span>
+            </label>
+            <input
+              class="field__input"
+              id="phone"
+              type="tel"
+              formControlName="phone"
+              autocomplete="tel"
+            />
+          </div>
+        </fieldset>
+
+        <!-- Tattoo Details -->
+        <fieldset class="booking-form__group">
+          <legend class="booking-form__group-label">Your Tattoo</legend>
+
+          <div class="field">
+            <label class="field__label" for="idea">
+              Describe your idea
+              <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <p class="field__hint" id="idea-hint">
+              Subject matter, mood, any personal meaning, and what you've been drawn to.
+              The more detail you can share, the better KC can prepare.
+            </p>
+            <textarea
+              class="field__input field__input--textarea"
+              id="idea"
+              formControlName="idea"
+              rows="5"
+              aria-describedby="idea-hint idea-error"
+              [attr.aria-invalid]="form.controls.idea.invalid && form.controls.idea.touched"
+            ></textarea>
+            @if (form.controls.idea.invalid && form.controls.idea.touched) {
+              <p class="field__error" id="idea-error" role="alert">
+                Please describe your idea (at least 20 characters).
+              </p>
+            }
+          </div>
+
+          <div class="booking-form__row">
+
+            <div class="field">
+              <label class="field__label" for="style">
+                Style
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <select
+                class="field__input field__input--select"
+                id="style"
+                formControlName="style"
+                [attr.aria-invalid]="form.controls.style.invalid && form.controls.style.touched"
+                aria-describedby="style-error"
+              >
+                <option value="" disabled>Select a style</option>
+                @for (s of styles; track s) {
+                  <option [value]="s">{{ s }}</option>
+                }
+              </select>
+              @if (form.controls.style.invalid && form.controls.style.touched) {
+                <p class="field__error" id="style-error" role="alert">Please select a style.</p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="size">
+                Approximate size
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <select
+                class="field__input field__input--select"
+                id="size"
+                formControlName="size"
+                [attr.aria-invalid]="form.controls.size.invalid && form.controls.size.touched"
+                aria-describedby="size-error"
+              >
+                <option value="" disabled>Select a size</option>
+                @for (s of sizes; track s) {
+                  <option [value]="s">{{ s }}</option>
+                }
+              </select>
+              @if (form.controls.size.invalid && form.controls.size.touched) {
+                <p class="field__error" id="size-error" role="alert">Please select a size.</p>
+              }
+            </div>
+
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="placement">
+              Placement
+              <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <p class="field__hint" id="placement-hint">Where on your body, and which side if relevant.</p>
+            <input
+              class="field__input"
+              id="placement"
+              type="text"
+              formControlName="placement"
+              placeholder="e.g. outer left forearm"
+              aria-describedby="placement-hint placement-error"
+              [attr.aria-invalid]="form.controls.placement.invalid && form.controls.placement.touched"
+            />
+            @if (form.controls.placement.invalid && form.controls.placement.touched) {
+              <p class="field__error" id="placement-error" role="alert">Please describe the placement.</p>
+            }
+          </div>
+
+          <!-- Reference Images -->
+          <div class="field">
+            <span class="field__label" id="refs-label">
+              Reference images
+              <span class="field__optional">(optional, up to 3)</span>
+            </span>
+            <p class="field__hint" id="refs-hint">
+              Screenshots, photos, or sketches that capture the mood or style you're after. JPEG, PNG, or WEBP.
+            </p>
+
+            <input
+              #fileInput
+              type="file"
+              class="sr-only"
+              accept="image/*"
+              multiple
+              (change)="onFilesChange($event)"
+              aria-labelledby="refs-label"
+              aria-describedby="refs-hint refs-error"
+            />
+
+            @if (selectedFiles().length < 3) {
+              <button
+                type="button"
+                class="file-upload__btn"
+                (click)="fileInput.click()"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                  <path d="M7 1v12M1 7h12"/>
+                </svg>
+                Add images ({{ selectedFiles().length }} / 3)
+              </button>
+            }
+
+            @if (selectedFiles().length > 0) {
+              <ul class="file-list" role="list">
+                @for (file of selectedFiles(); track file.name; let i = $index) {
+                  <li class="file-list__item">
+                    <svg class="file-list__icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="1" width="10" height="12" rx="1"/>
+                      <path d="M2 9l3-3 2 2 2-3 3 4"/>
+                      <circle cx="9.5" cy="4.5" r="1"/>
+                    </svg>
+                    <span class="file-list__name">{{ file.name }}</span>
+                    <button
+                      type="button"
+                      class="file-list__remove"
+                      (click)="removeFile(i)"
+                      [attr.aria-label]="'Remove ' + file.name"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                        <path d="M2 2l8 8M10 2l-8 8"/>
+                      </svg>
+                    </button>
+                  </li>
+                }
+              </ul>
+            }
+
+            @if (fileError()) {
+              <p class="field__error" id="refs-error" role="alert">{{ fileError() }}</p>
+            }
+          </div>
+
+        </fieldset>
+
+        <!-- Optional -->
+        <fieldset class="booking-form__group">
+          <legend class="booking-form__group-label">
+            One More Thing
+            <span class="field__optional">(optional)</span>
+          </legend>
+          <div class="field">
+            <label class="field__label" for="referral">How did you hear about KC?</label>
+            <select class="field__input field__input--select" id="referral" formControlName="referral">
+              <option value="">Prefer not to say</option>
+              @for (r of referralSources; track r) {
+                <option [value]="r">{{ r }}</option>
+              }
+            </select>
+          </div>
+        </fieldset>
+
+        <div class="booking-form__footer">
+          <p class="booking-form__note">
+            Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span>
+            are required.
+          </p>
+          <button class="btn btn-primary" type="submit">Submit Inquiry</button>
+        </div>
+
+      </form>
+
+    } @else {
+
+      <!-- Success State -->
+      <div class="booking-success" role="status" aria-live="polite">
+        <div class="booking-success__icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="21"/>
+            <path d="M15 25l7 7 11-13"/>
+          </svg>
+        </div>
+        <h2 class="booking-success__title">Inquiry Received</h2>
+        <p class="booking-success__message">
+          Thanks for reaching out. KC will review your inquiry and be in touch within
+          2–3 business days to discuss next steps.
+        </p>
+        <div class="booking-success__actions">
+          <a class="btn btn-outline" routerLink="/faq">Read the FAQ</a>
+          <a class="btn btn-outline" routerLink="/portfolio">Browse the Portfolio</a>
+        </div>
+      </div>
+
+    }
+
+  </div>
+</section>

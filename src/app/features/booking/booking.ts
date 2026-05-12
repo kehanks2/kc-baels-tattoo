@@ -1,14 +1,82 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header';
 
 @Component({
   selector: 'app-booking',
-  template: `
-    <section class="section container">
-      <p class="section-label">Get Started</p>
-      <h1 class="section-title">Book an Appointment</h1>
-      <p>Reactive booking form with file upload — coming soon.</p>
-    </section>
-  `,
+  imports: [ReactiveFormsModule, RouterLink, SectionHeaderComponent],
+  templateUrl: './booking.html',
+  styleUrl: './booking.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookingComponent {}
+export class BookingComponent {
+  private readonly fb = inject(FormBuilder);
+
+  readonly submitted    = signal(false);
+  readonly selectedFiles = signal<File[]>([]);
+  readonly fileError    = signal<string | null>(null);
+
+  readonly form = this.fb.nonNullable.group({
+    name:      ['', [Validators.required, Validators.minLength(2)]],
+    email:     ['', [Validators.required, Validators.email]],
+    phone:     [''],
+    idea:      ['', [Validators.required, Validators.minLength(20)]],
+    style:     ['', Validators.required],
+    placement: ['', Validators.required],
+    size:      ['', Validators.required],
+    referral:  [''],
+  });
+
+  readonly styles = [
+    'Blackwork',
+    'Fine Line',
+    'Realism',
+    'Anime / Illustrative',
+    'Not sure yet',
+  ];
+
+  readonly sizes = [
+    'Small — under 3"',
+    'Medium — 3–6"',
+    'Large — 6–10"',
+    'Extra Large / Full piece',
+  ];
+
+  readonly referralSources = ['Instagram', 'Word of mouth', 'Google', 'Other'];
+
+  onFilesChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const incoming = Array.from(input.files ?? []);
+    input.value = '';
+
+    const nonImages = incoming.filter(f => !f.type.startsWith('image/'));
+    if (nonImages.length > 0) {
+      this.fileError.set('Only image files (JPEG, PNG, WEBP) are accepted.');
+      return;
+    }
+
+    const combined = [...this.selectedFiles(), ...incoming];
+    if (combined.length > 3) {
+      this.fileError.set('Maximum 3 reference images allowed.');
+      this.selectedFiles.set(combined.slice(0, 3));
+    } else {
+      this.fileError.set(null);
+      this.selectedFiles.set(combined);
+    }
+  }
+
+  removeFile(index: number): void {
+    this.selectedFiles.update(files => files.filter((_, i) => i !== index));
+    this.fileError.set(null);
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    // TODO: POST to backend API (include this.selectedFiles())
+    this.submitted.set(true);
+  }
+}
