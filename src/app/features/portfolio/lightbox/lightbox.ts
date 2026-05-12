@@ -2,10 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   input,
+  linkedSignal,
   output,
-  signal,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { CATEGORY_LABELS, PortfolioItem } from '../../../core/models/portfolio-item.model';
@@ -25,7 +24,7 @@ export class LightboxComponent {
   readonly startIndex = input.required<number>();
   readonly closed = output<void>();
 
-  readonly currentIndex = signal(0);
+  readonly currentIndex = linkedSignal(() => this.startIndex());
   readonly categoryLabels = CATEGORY_LABELS;
 
   readonly current = computed(() => {
@@ -33,12 +32,6 @@ export class LightboxComponent {
     const i = this.currentIndex();
     return i >= 0 && i < items.length ? items[i] : null;
   });
-
-  constructor() {
-    effect(() => {
-      this.currentIndex.set(this.startIndex());
-    });
-  }
 
   prev(): void {
     this.currentIndex.update(i => (i - 1 + this.items().length) % this.items().length);
