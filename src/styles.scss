@@ -1,0 +1,223 @@
+// ─── Google Fonts ────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+// ─── Design Tokens ───────────────────────────────────────────────────────────
+:root {
+  // Background
+  --color-bg-primary:   #0F0F10;
+  --color-bg-secondary: #1B1B1D;
+  --color-bg-card:      #222224;
+
+  // Text
+  --color-text-primary:  #F4F1EA;
+  --color-text-muted:    #9A9A9A;
+  --color-text-inverse:  #0F0F10;
+
+  // Accent
+  --color-accent:        #C7A26A;
+  --color-accent-hover:  #D4B07D;
+  --color-accent-dim:    rgba(199, 162, 106, 0.12);
+
+  // Border
+  --color-border:        rgba(244, 241, 234, 0.08);
+  --color-border-accent: rgba(199, 162, 106, 0.3);
+
+  // Typography
+  --font-heading: 'Cinzel', serif;
+  --font-body:    'Inter', sans-serif;
+
+  // Spacing scale
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  // Layout
+  --max-width:      1280px;
+  --nav-height:     72px;
+  --border-radius:  4px;
+
+  // Transitions
+  --transition-fast:   150ms ease;
+  --transition-base:   300ms ease;
+  --transition-slow:   600ms ease;
+}
+
+// ─── Reset & Base ─────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+
+p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+// ─── Utility Classes ──────────────────────────────────────────────────────────
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-xl);
+
+  @media (max-width: 768px) {
+    padding-inline: var(--space-lg);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.section {
+  padding-block: var(--space-3xl);
+
+  @media (max-width: 768px) {
+    padding-block: var(--space-2xl);
+  }
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.section-title {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+// ─── Button Styles ────────────────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-base),
+              color var(--transition-base),
+              transform var(--transition-fast);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-inverse);
+  }
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-accent);
+
+  &:hover {
+    background-color: var(--color-accent-dim);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+// ─── Scrollbar ────────────────────────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 3px;
+}

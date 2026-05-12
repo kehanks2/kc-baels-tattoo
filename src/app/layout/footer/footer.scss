@@ -1,0 +1,113 @@
+.footer {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2xl);
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-2xl);
+    align-items: start;
+    padding-bottom: var(--space-2xl);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  &__logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: var(--space-sm);
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  &__tagline {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+
+  &__nav {
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+
+      @media (max-width: 768px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-lg);
+      }
+    }
+
+    a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  &__social {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  &__social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    gap: var(--space-md);
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__copy,
+  &__location {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+}

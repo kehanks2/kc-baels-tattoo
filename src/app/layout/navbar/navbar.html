@@ -1,0 +1,72 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav class="navbar" aria-label="Primary navigation">
+  <div class="navbar__inner container">
+
+    <!-- Logo / Wordmark -->
+    <a class="navbar__logo" routerLink="/" (click)="closeMenu()" aria-label="KC Baels Tattoo — Home">
+      <span class="navbar__logo-text">KC Baels</span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="navbar__links" role="list">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            class="navbar__link"
+            [routerLink]="link.path"
+            routerLinkActive="navbar__link--active"
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Desktop CTA -->
+    <a class="btn btn-primary navbar__cta" routerLink="/booking">Book Now</a>
+
+    <!-- Hamburger -->
+    <button
+      class="navbar__hamburger"
+      type="button"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      [attr.aria-label]="menuAriaLabel()"
+      (click)="toggleMenu()"
+    >
+      <span class="navbar__hamburger-bar"></span>
+      <span class="navbar__hamburger-bar"></span>
+      <span class="navbar__hamburger-bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile overlay menu -->
+<div
+  class="mobile-menu"
+  [class.mobile-menu--open]="mobileMenuOpen()"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+>
+  <nav aria-label="Mobile navigation links">
+    <ul class="mobile-menu__links" role="list">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            class="mobile-menu__link"
+            [routerLink]="link.path"
+            routerLinkActive="mobile-menu__link--active"
+            (click)="closeMenu()"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+    <a class="btn btn-primary mobile-menu__cta" routerLink="/booking" (click)="closeMenu()">
+      Book an Appointment
+    </a>
+  </nav>
+</div>

@@ -1,0 +1,41 @@
+<footer class="footer" aria-label="Site footer">
+  <div class="footer__inner container">
+
+    <div class="footer__brand">
+      <a class="footer__logo" routerLink="/" aria-label="KC Baels Tattoo — Home">KC Baels</a>
+      <p class="footer__tagline">Custom Tattoo Artist · Pflugerville, TX</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <ul role="list">
+        <li><a routerLink="/portfolio">Portfolio</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/booking">Booking</a></li>
+        <li><a routerLink="/faq">FAQ</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__social">
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="KC Baels on Instagram (opens in new tab)"
+        class="footer__social-link"
+      >
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bottom container">
+    <p class="footer__copy">&copy; {{ year }} KC Baels Tattoo. All rights reserved.</p>
+    <p class="footer__location">Pflugerville &amp; Austin, Texas</p>
+  </div>
+</footer>
