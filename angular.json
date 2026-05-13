@@ -32,7 +32,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "outputMode": "static"
+            "outputMode": "static",
+            "prerender": {
+              "discoverRoutes": true
+            }
           },
           "configurations": {
             "production": {
