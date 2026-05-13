@@ -1,5 +1,6 @@
 package com.kcbaels.api.booking;
 
+import com.kcbaels.api.notification.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.time.Instant;
 public class BookingService {
 
     private final BookingRepository repository;
+    private final EmailService emailService;
 
     public void submit(BookingRequest request) {
         repository.save(BookingInquiry.builder()
@@ -23,5 +25,10 @@ public class BookingService {
             .referral(request.referral())
             .submittedAt(Instant.now())
             .build());
+
+        emailService.sendBookingNotification(
+            request.name(), request.email(), request.phone(),
+            request.style(), request.placement(), request.size(),
+            request.referral(), request.idea());
     }
 }

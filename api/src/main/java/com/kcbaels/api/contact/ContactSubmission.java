@@ -31,4 +31,6 @@ public class ContactSubmission {
 
     @Column(nullable = false)
     private Instant submittedAt;
+
+    private Instant readAt;
 }

@@ -42,4 +42,6 @@ public class BookingInquiry {
 
     @Column(nullable = false)
     private Instant submittedAt;
+
+    private Instant readAt;
 }

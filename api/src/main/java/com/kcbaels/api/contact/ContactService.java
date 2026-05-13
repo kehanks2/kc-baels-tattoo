@@ -1,7 +1,9 @@
 package com.kcbaels.api.contact;
 
+import com.kcbaels.api.notification.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.Instant;
 
 @Service
@@ -9,6 +11,7 @@ import java.time.Instant;
 public class ContactService {
 
     private final ContactRepository repository;
+    private final EmailService emailService;
 
     public void submit(ContactRequest request) {
         repository.save(ContactSubmission.builder()
@@ -18,5 +21,8 @@ public class ContactService {
             .message(request.message())
             .submittedAt(Instant.now())
             .build());
+
+        emailService.sendContactNotification(
+            request.name(), request.email(), request.topic(), request.message());
     }
 }
