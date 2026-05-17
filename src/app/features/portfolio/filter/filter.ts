@@ -16,9 +16,6 @@ export class FilterComponent {
     { value: 'all',        label: 'All Work' },
     { value: 'black-grey', label: CATEGORY_LABELS['black-grey'] },
     { value: 'color',      label: CATEGORY_LABELS['color'] },
-    { value: 'fine-line',  label: CATEGORY_LABELS['fine-line'] },
-    { value: 'traditional',label: CATEGORY_LABELS['traditional'] },
-    { value: 'geometric',  label: CATEGORY_LABELS['geometric'] },
   ];
 
   select(value: FilterOption): void {

@@ -1,18 +1,12 @@
 export type PortfolioCategory =
   | 'black-grey'
-  | 'color'
-  | 'fine-line'
-  | 'traditional'
-  | 'geometric';
+  | 'color';
 
 export type FilterOption = PortfolioCategory | 'all';
 
 export const CATEGORY_LABELS: Record<PortfolioCategory, string> = {
-  'black-grey':  'Black & Grey',
-  'color':       'Color',
-  'fine-line':   'Fine Line',
-  'traditional': 'Traditional',
-  'geometric':   'Geometric',
+  'black-grey': 'Black & Grey',
+  'color':      'Color',
 };
 
 export interface PortfolioItem {
