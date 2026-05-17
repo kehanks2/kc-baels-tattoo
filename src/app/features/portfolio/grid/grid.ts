@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  NgZone,
   computed,
   inject,
   input,
@@ -28,6 +29,7 @@ export class GridComponent {
   readonly categoryLabels = CATEGORY_LABELS;
 
   private readonly destroyRef = inject(DestroyRef);
+  private readonly ngZone = inject(NgZone);
   private readonly numColumns = signal(this.calcNumColumns());
 
   readonly columns = computed<GridEntry[][]>(() => {
@@ -39,7 +41,7 @@ export class GridComponent {
 
   constructor() {
     afterNextRender(() => {
-      const handler = () => this.numColumns.set(this.calcNumColumns());
+      const handler = () => this.ngZone.run(() => this.numColumns.set(this.calcNumColumns()));
       window.addEventListener('resize', handler);
       this.destroyRef.onDestroy(() => window.removeEventListener('resize', handler));
     });
