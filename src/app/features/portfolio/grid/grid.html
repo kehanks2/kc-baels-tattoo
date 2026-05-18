@@ -2,27 +2,23 @@
   <p class="empty">No pieces in this style yet — check back soon.</p>
 } @else {
   <div class="grid" role="list">
-    @for (col of columns(); track $index) {
-      <div class="grid__col">
-        @for (entry of col; track entry.item.id) {
-          <div
-            class="grid-item"
-            role="listitem"
-            tabindex="0"
-            [attr.aria-label]="'Open ' + entry.item.alt"
-            (click)="open(entry.index)"
-            (keydown.enter)="open(entry.index)"
-            (keydown.space)="$event.preventDefault(); open(entry.index)"
-          >
-            <img [ngSrc]="entry.item.src" [alt]="entry.item.alt" [width]="entry.item.width" [height]="entry.item.height" [priority]="entry.index < 6" />
-            <div class="overlay" aria-hidden="true">
-              @if (entry.item.title) {
-                <span class="overlay-title">{{ entry.item.title }}</span>
-              }
-              <span class="overlay-category">{{ categoryLabels[entry.item.category] }}</span>
-            </div>
-          </div>
-        }
+    @for (item of items(); track item.id; let i = $index) {
+      <div
+        class="grid-item"
+        role="listitem"
+        tabindex="0"
+        [attr.aria-label]="'Open ' + item.alt"
+        (click)="open(i)"
+        (keydown.enter)="open(i)"
+        (keydown.space)="$event.preventDefault(); open(i)"
+      >
+        <img [ngSrc]="item.src" [alt]="item.alt" [width]="item.width" [height]="item.height" [priority]="i < 6" />
+        <div class="overlay" aria-hidden="true">
+          @if (item.title) {
+            <span class="overlay-title">{{ item.title }}</span>
+          }
+          <span class="overlay-category">{{ categoryLabels[item.category] }}</span>
+        </div>
       </div>
     }
   </div>
