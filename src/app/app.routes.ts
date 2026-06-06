@@ -12,7 +12,7 @@ export const routes: Routes = [
           import('./features/home/home').then((m) => m.HomeComponent),
         title: 'Baels — Tattoo Artist | Austin, TX',
         data: {
-          description: 'Custom tattoos rooted in intentional design. Baels creates thoughtfully designed tattoos at Flying Tiger Tattoo in Austin, TX.',
+          description: 'Get tattooed by Baels in Austin, TX — neotraditional, traditional, and black & grey work at Flying Tiger Tattoo. Every piece starts with a conversation.',
         },
       },
       {
@@ -21,7 +21,7 @@ export const routes: Routes = [
           import('./features/portfolio/portfolio').then((m) => m.PortfolioComponent),
         title: 'Portfolio — Baels Tattoo',
         data: {
-          description: 'Browse Baels\' custom tattoo portfolio — blackwork, fine line, realism, color, and more. Based at Flying Tiger Tattoo in Austin, TX.',
+          description: 'Browse the portfolio of Baels in Austin, TX — neotraditional, traditional, black & grey, illustrative, and script work at Flying Tiger Tattoo.',
         },
       },
       {
@@ -30,7 +30,7 @@ export const routes: Routes = [
           import('./features/about/about').then((m) => m.AboutComponent),
         title: 'About — Baels Tattoo',
         data: {
-          description: 'Learn about Baels, tattoo artist based at Flying Tiger Tattoo in Austin, TX. Every session starts with a conversation.',
+          description: 'Learn about Baels in Austin, TX — raised on surrealism, graffiti, and fine art, now tattooing neotraditional and traditional work at Flying Tiger Tattoo.',
         },
       },
       {
@@ -39,7 +39,7 @@ export const routes: Routes = [
           import('./features/booking/booking').then((m) => m.BookingComponent),
         title: 'Book an Appointment — Baels Tattoo',
         data: {
-          description: 'Ready to start your custom tattoo? Submit a booking inquiry and Baels will be in touch within 2–3 business days to discuss your idea.',
+          description: 'Ready to get tattooed by Baels in Austin, TX? Submit a booking inquiry at Flying Tiger Tattoo and start the conversation about your next piece.',
         },
       },
       {
@@ -48,7 +48,7 @@ export const routes: Routes = [
           import('./features/faq/faq').then((m) => m.FaqComponent),
         title: 'FAQ — Baels Tattoo',
         data: {
-          description: 'Common questions about booking, pricing, preparing for your session, aftercare, and Baels\' design process.',
+          description: 'Everything you need to know about getting tattooed by Baels in Austin, TX — styles, pricing, the consultation process, and aftercare.',
         },
       },
       {
@@ -57,7 +57,7 @@ export const routes: Routes = [
           import('./features/contact/contact').then((m) => m.ContactComponent),
         title: 'Contact — Baels Tattoo',
         data: {
-          description: 'Get in touch with Baels for general questions, collaboration inquiries, or press. Located at Flying Tiger Tattoo in Austin, TX.',
+          description: 'Questions, collaborations, or anything else — reach out to Baels at Flying Tiger Tattoo in Austin, TX.',
         },
       },
     ],
