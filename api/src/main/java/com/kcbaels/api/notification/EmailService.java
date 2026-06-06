@@ -1,36 +1,41 @@
 package com.kcbaels.api.notification;
 
-import lombok.RequiredArgsConstructor;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    private final SendGrid sendGrid;
+    private final String from;
+    private final String ownerEmail;
 
-    @Value("${mail.from}")
-    private String from;
-
-    @Value("${mail.owner}")
-    private String ownerEmail;
+    public EmailService(
+            @Value("${mail.api-key}") String apiKey,
+            @Value("${mail.from}") String from,
+            @Value("${mail.owner}") String ownerEmail) {
+        this.sendGrid = new SendGrid(apiKey);
+        this.from = from;
+        this.ownerEmail = ownerEmail;
+    }
 
     public void sendContactNotification(String name, String email, String topic, String message) {
         if (ownerEmail == null || ownerEmail.isBlank()) {
             log.warn("OWNER_EMAIL not configured — skipping contact notification email");
             return;
         }
-        send(ownerEmail, email,
-                "New Contact Message – " + topic,
+        send(ownerEmail, email, "New Contact Message – " + topic,
                 contactOwnerBody(name, email, topic, message));
-        send(email, null,
-                "We received your message – KC Baels Tattoo",
+        send(email, null, "We received your message – Baels Tattoo",
                 contactAutoReply(name));
     }
 
@@ -41,24 +46,35 @@ public class EmailService {
             log.warn("OWNER_EMAIL not configured — skipping booking notification email");
             return;
         }
-        send(ownerEmail, email,
-                "New Booking Request – " + style + " from " + name,
+        send(ownerEmail, email, "New Booking Request – " + style + " from " + name,
                 bookingOwnerBody(name, email, phone, style, placement, size, referral, idea));
-        send(email, null,
-                "Booking Request Received – KC Baels Tattoo",
+        send(email, null, "Booking Request Received – Baels Tattoo",
                 bookingAutoReply(name));
     }
 
     private void send(String to, String replyTo, String subject, String body) {
         try {
-            var msg = mailSender.createMimeMessage();
-            var helper = new MimeMessageHelper(msg, false, "UTF-8");
-            helper.setFrom(from);
-            helper.setTo(to);
-            if (replyTo != null) helper.setReplyTo(replyTo);
-            helper.setSubject(subject);
-            helper.setText(body, false);
-            mailSender.send(msg);
+            Mail mail = new Mail();
+            mail.setFrom(new Email(from, "Baels Tattoo"));
+            mail.setSubject(subject);
+
+            Personalization personalization = new Personalization();
+            personalization.addTo(new Email(to));
+            if (replyTo != null) mail.setReplyTo(new Email(replyTo));
+            mail.addPersonalization(personalization);
+            mail.addContent(new Content("text/plain", body));
+
+            Request request = new Request();
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+
+            var response = sendGrid.api(request);
+            if (response.getStatusCode() >= 400) {
+                log.error("SendGrid rejected email to {}: {} {}", to, response.getStatusCode(), response.getBody());
+            } else {
+                log.info("Email sent to {} (status {})", to, response.getStatusCode());
+            }
         } catch (Exception e) {
             log.error("Failed to send email to {}: {}", to, e.getMessage());
         }
@@ -81,9 +97,9 @@ public class EmailService {
         return """
                 Hi %s,
 
-                Thanks for reaching out! KC will get back to you as soon as possible.
+                Thanks for reaching out! Baels will get back to you as soon as possible.
 
-                — KC Baels Tattoo
+                — Baels Tattoo
                 """.formatted(name);
     }
 
@@ -114,9 +130,9 @@ public class EmailService {
         return """
                 Hi %s,
 
-                Thanks for your booking inquiry! KC reviews all requests personally and will reach out soon.
+                Thanks for your booking inquiry! Baels reviews all requests personally and will reach out soon.
 
-                — KC Baels Tattoo
+                — Baels Tattoo
                 """.formatted(name);
     }
 }
