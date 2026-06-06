@@ -5,16 +5,18 @@ import { filter } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar';
 import { FooterComponent } from '../footer/footer';
 import { SeoService } from '../../core/services/seo.service';
+import { ScrollToTopComponent } from '../../shared/ui/scroll-to-top/scroll-to-top';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, ScrollToTopComponent],
   template: `
     <app-navbar />
     <main id="main-content">
       <router-outlet />
     </main>
     <app-footer />
+    <app-scroll-to-top />
   `,
   styles: `
     main {
