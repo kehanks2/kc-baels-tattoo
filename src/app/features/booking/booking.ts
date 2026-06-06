@@ -38,8 +38,8 @@ export class BookingComponent {
     'Black & Grey',
     'Illustrative',
     'Realism',
-    'Script / Lettering',
-    'Not sure yet',
+    'Script | Lettering',
+    'Other | Not Sure',
   ];
 
   readonly sizes = [
