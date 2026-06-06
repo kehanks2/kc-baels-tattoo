@@ -130,7 +130,7 @@ public class EmailService {
         return """
                 Hi %s,
 
-                Thanks for your booking inquiry! Baels reviews all requests personally and will reach out soon.
+                Thanks for your booking inquiry! I review all requests personally and will reach out soon.
 
                 — Baels Tattoo
                 """.formatted(name);

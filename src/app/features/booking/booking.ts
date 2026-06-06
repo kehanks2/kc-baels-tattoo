@@ -33,10 +33,12 @@ export class BookingComponent {
   });
 
   readonly styles = [
-    'Blackwork',
-    'Fine Line',
+    'Neotraditional',
+    'Traditional',
+    'Black & Grey',
+    'Illustrative',
     'Realism',
-    'Anime / Illustrative',
+    'Script / Lettering',
     'Not sure yet',
   ];
 
