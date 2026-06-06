@@ -27,6 +27,8 @@ export class PortfolioComponent {
   readonly activeCategory = signal<FilterOption>('all');
   readonly lightboxIndex = signal<number | null>(null);
 
+  readonly loading = computed(() => this.portfolioService.items() === undefined);
+
   readonly filteredItems = computed(() =>
     this.portfolioService.byCategory(this.activeCategory())
   );

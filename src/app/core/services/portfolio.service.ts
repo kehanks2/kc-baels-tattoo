@@ -37,14 +37,13 @@ export class PortfolioService {
     this.http.get<PortfolioImageDto[]>('/api/portfolio').pipe(
       map(dtos => dtos.map(toItem)),
       catchError(() => of([] as PortfolioItem[]))
-    ),
-    { initialValue: [] as PortfolioItem[] }
+    )
   );
 
   readonly items = this._items;
 
   byCategory(category: FilterOption): PortfolioItem[] {
-    const all = this._items();
+    const all = this._items() ?? [];
     return category === 'all' ? all : all.filter(i => i.category === category);
   }
 
