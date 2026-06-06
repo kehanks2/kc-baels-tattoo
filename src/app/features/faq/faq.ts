@@ -41,7 +41,7 @@ export class FaqComponent {
           id: 'booking-2',
           question: 'What happens during a consultation?',
           answer:
-            "Consultations are a chance to talk through your idea before any commitment is made. Kc will discuss size, placement, style, and what to realistically expect from the process. You'll leave with a clear sense of the design direction, timeline, and total cost — no pressure.",
+            "Consultations are a chance to talk through your idea before any commitment is made. Baels will discuss size, placement, style, and what to realistically expect from the process. You'll leave with a clear sense of the design direction, timeline, and total cost — no pressure.",
         },
         {
           id: 'booking-3',
@@ -145,7 +145,7 @@ export class FaqComponent {
           id: 'aftercare-3',
           question: 'Do you offer touch-ups?',
           answer:
-            'Yes. If your tattoo heals with light or patchy spots — which occasionally happens depending on skin type and aftercare — Kc offers a complimentary touch-up within 3 months of your original session.',
+            'Yes. If your tattoo heals with light or patchy spots — which occasionally happens depending on skin type and aftercare — Baels offers a complimentary touch-up within 3 months of your original session.',
         },
       ],
     },
@@ -162,17 +162,17 @@ export class FaqComponent {
           id: 'design-2',
           question: 'Will my tattoo look exactly like my reference?',
           answer:
-            "References are used as direction, not as templates to copy. Kc will adapt the concept to work as a tattoo on your specific placement — which sometimes means simplifying details or adjusting proportions. The result will feel true to your vision while being built to last on skin.",
+            "References are used as direction, not as templates to copy. Baels will adapt the concept to work as a tattoo on your specific placement — which sometimes means simplifying details or adjusting proportions. The result will feel true to your vision while being built to last on skin.",
         },
         {
           id: 'design-3',
-          question: 'What styles does Kc specialize in?',
+          question: 'What styles does Baels specialize in?',
           answer:
             "Primary styles are neotraditional, traditional, blackwork, and illustrative work. If your idea sits outside those categories, reach out anyway — he takes on select projects outside the usual scope.",
         },
         {
           id: 'design-4',
-          question: 'Can Kc tattoo over an existing tattoo or scar?',
+          question: 'Can Baels tattoo over an existing tattoo or scar?',
           answer:
             'Cover-ups and scar work are evaluated on a case-by-case basis. They depend on the size, darkness, and age of the existing ink or scar tissue. Include a clear photo in your booking inquiry for an honest assessment of what\'s possible.',
         },
