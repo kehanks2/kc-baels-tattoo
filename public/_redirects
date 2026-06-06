@@ -1,2 +1,1 @@
-# Proxy /api calls to the Railway backend.
-/api/*  https://kc-baels-tattoo-production.up.railway.app/api/:splat  200
+/*  /index.html  200
