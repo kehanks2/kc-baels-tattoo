@@ -97,7 +97,7 @@ public class EmailService {
         return """
                 Hi %s,
 
-                Thanks for reaching out! Baels will get back to you as soon as possible.
+                Thanks for reaching out! I'll get back to you as soon as possible.
 
                 — Baels Tattoo
                 """.formatted(name);
