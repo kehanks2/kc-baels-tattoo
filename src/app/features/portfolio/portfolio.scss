@@ -2,3 +2,23 @@
   max-width: 52ch;
   margin-bottom: var(--space-xl);
 }
+
+.portfolio-loading {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-3xl);
+}
+
+.portfolio-spinner {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

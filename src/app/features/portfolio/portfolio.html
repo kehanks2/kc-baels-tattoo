@@ -15,10 +15,16 @@
       (categoryChange)="onCategoryChange($event)"
     />
 
-    <app-grid
-      [items]="filteredItems()"
-      (itemClick)="onItemClick($event)"
-    />
+    @if (loading()) {
+      <div class="portfolio-loading" aria-label="Loading portfolio" role="status">
+        <span class="portfolio-spinner" aria-hidden="true"></span>
+      </div>
+    } @else {
+      <app-grid
+        [items]="filteredItems()"
+        (itemClick)="onItemClick($event)"
+      />
+    }
   </div>
 
 </section>
