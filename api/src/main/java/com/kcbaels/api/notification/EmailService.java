@@ -21,7 +21,6 @@ public class EmailService {
     @Value("${mail.owner}")
     private String ownerEmail;
 
-    @Async
     public void sendContactNotification(String name, String email, String topic, String message) {
         if (ownerEmail == null || ownerEmail.isBlank()) {
             log.warn("OWNER_EMAIL not configured — skipping contact notification email");
@@ -35,7 +34,6 @@ public class EmailService {
                 contactAutoReply(name));
     }
 
-    @Async
     public void sendBookingNotification(String name, String email, String phone,
                                         String style, String placement, String size,
                                         String referral, String idea) {
