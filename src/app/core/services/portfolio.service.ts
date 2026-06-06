@@ -48,6 +48,6 @@ export class PortfolioService {
   }
 
   featured(): PortfolioItem[] {
-    return this._items().filter(i => i.featured);
+    return (this._items() ?? []).filter(i => i.featured);
   }
 }
