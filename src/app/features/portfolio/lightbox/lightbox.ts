@@ -44,12 +44,6 @@ export class LightboxComponent {
     this.closed.emit();
   }
 
-  onBackdropClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget) {
-      this.close();
-    }
-  }
-
   handleKeydown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Escape':     this.close(); break;

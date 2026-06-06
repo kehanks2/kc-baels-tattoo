@@ -54,11 +54,15 @@
     }
   }
 
-  &__image-placeholder {
+  &__image-wrap {
+    position: relative;
     aspect-ratio: 4 / 5;
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
+    overflow: hidden;
     border-radius: var(--border-radius);
+
+    img {
+      object-fit: cover;
+    }
   }
 
   &__text-col {

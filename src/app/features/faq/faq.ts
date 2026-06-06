@@ -35,7 +35,7 @@ export class FaqComponent {
           id: 'booking-1',
           question: 'How do I book an appointment?',
           answer:
-            'Fill out the booking form with your idea, preferred placement, and a few reference images. Kc will reach out to confirm availability and schedule a consultation. Walk-ins are not accepted — all work is by appointment only.',
+            'Fill out the booking form with your idea, preferred placement, and a few reference images. You\'ll hear back to confirm availability and schedule a consultation. Walk-ins are not accepted — all work is by appointment only.',
         },
         {
           id: 'booking-2',
@@ -47,7 +47,7 @@ export class FaqComponent {
           id: 'booking-3',
           question: 'Is a deposit required to hold my appointment?',
           answer:
-            'Yes. A non-refundable deposit is required to secure your spot after your consultation. It goes toward the final cost of your tattoo and ensures Kc can dedicate time to drawing your design.',
+            'Yes. A non-refundable deposit is required to secure your spot after your consultation. It goes toward the final cost of your tattoo and ensures time is set aside to draw your design.',
         },
         {
           id: 'booking-4',
@@ -70,7 +70,7 @@ export class FaqComponent {
           id: 'pricing-2',
           question: 'Is the custom design included in the price?',
           answer:
-            'Yes. Every piece Kc creates is drawn specifically for you — the design work is part of the process, not a separate charge.',
+            'Yes. Every piece is drawn specifically for you — the design work is part of the process, not a separate charge.',
         },
         {
           id: 'pricing-3',
@@ -110,7 +110,7 @@ export class FaqComponent {
           id: 'session-1',
           question: 'How long will my session take?',
           answer:
-            'Small pieces typically take 1–2 hours. Larger or more detailed work may be spread across multiple sessions. Kc will give you a realistic time estimate during your consultation so you can plan accordingly.',
+            'Small pieces typically take 1–2 hours. Larger or more detailed work may be spread across multiple sessions. You\'ll get a realistic time estimate during your consultation so you can plan accordingly.',
         },
         {
           id: 'session-2',
@@ -122,7 +122,7 @@ export class FaqComponent {
           id: 'session-3',
           question: 'Can I take breaks during the session?',
           answer:
-            "Yes, and you should whenever you need one. Let Kc know if you need a moment to eat a snack, drink some water, or step away for a bit. Short breaks are completely normal and won't affect the quality of the work.",
+            "Yes, and you should whenever you need one. Just say the word if you need a moment to eat a snack, drink some water, or step away for a bit. Short breaks are completely normal and won't affect the quality of the work.",
         },
       ],
     },
@@ -133,7 +133,7 @@ export class FaqComponent {
           id: 'aftercare-1',
           question: 'What do I do after my tattoo?',
           answer:
-            "Kc will send you home with detailed aftercare instructions. The essentials: keep it clean, apply a thin layer of unscented lotion, avoid direct sunlight and standing water — pools, ocean, and baths — and don't scratch or pick at the skin as it heals.",
+            "You'll leave with detailed aftercare instructions. The essentials: keep it clean, apply a thin layer of unscented lotion, avoid direct sunlight and standing water — pools, ocean, and baths — and don't scratch or pick at the skin as it heals.",
         },
         {
           id: 'aftercare-2',
@@ -168,13 +168,13 @@ export class FaqComponent {
           id: 'design-3',
           question: 'What styles does Kc specialize in?',
           answer:
-            "Kc's primary styles are blackwork, fine line, realism, and anime/illustrative work. If your idea sits outside those categories, reach out anyway — Kc takes on select projects outside the usual scope.",
+            "Primary styles are neotraditional, traditional, blackwork, and illustrative work. If your idea sits outside those categories, reach out anyway — he takes on select projects outside the usual scope.",
         },
         {
           id: 'design-4',
           question: 'Can Kc tattoo over an existing tattoo or scar?',
           answer:
-            'Cover-ups and scar work are evaluated on a case-by-case basis. They depend on the size, darkness, and age of the existing ink or scar tissue. Include a clear photo in your booking inquiry so Kc can give you an honest assessment of what is possible.',
+            'Cover-ups and scar work are evaluated on a case-by-case basis. They depend on the size, darkness, and age of the existing ink or scar tissue. Include a clear photo in your booking inquiry for an honest assessment of what\'s possible.',
         },
       ],
     },
