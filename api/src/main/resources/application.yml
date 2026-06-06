@@ -2,9 +2,9 @@ spring:
   application:
     name: KC Baels API
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/kcbaels}
-    username: ${DB_USER:kcbaels}
-    password: ${DB_PASS:kcbaels}
+    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:kcbaels}
+    username: ${PGUSER:${DB_USER:kcbaels}}
+    password: ${PGPASSWORD:${DB_PASS:kcbaels}}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
