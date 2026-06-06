@@ -60,10 +60,12 @@ export const routes: Routes = [
           description: 'Questions, collaborations, or anything else — reach out to Baels at Flying Tiger Tattoo in Austin, TX.',
         },
       },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./features/not-found/not-found').then((m) => m.NotFoundComponent),
+        title: 'Page Not Found — Baels Tattoo',
+      },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: '',
   },
 ];
