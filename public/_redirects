@@ -1,0 +1,3 @@
+# Proxy /api calls to the Railway backend.
+# Uncomment and replace the URL below with your Railway deployment URL before going live.
+# /api/*  https://YOUR-APP.railway.app/api/:splat  200
