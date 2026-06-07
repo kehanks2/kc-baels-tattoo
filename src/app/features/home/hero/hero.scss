@@ -5,6 +5,10 @@
   align-items: center;
   overflow: hidden;
 
+  @media (max-width: 768px) {
+    min-height: auto;
+  }
+
   &__bg {
     position: absolute;
     inset: 0;
