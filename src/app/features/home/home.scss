@@ -40,18 +40,29 @@
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "image header"
+      "image text";
     gap: var(--space-3xl);
-    align-items: center;
+    align-items: start;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "header"
+        "image"
+        "text";
     }
   }
 
+  &__header-col {
+    grid-area: header;
+  }
+
   &__image-col {
-    @media (max-width: 768px) {
-      aspect-ratio: 1 / 1;
-    }
+    grid-area: image;
   }
 
   &__image-wrap {
@@ -66,6 +77,7 @@
   }
 
   &__text-col {
+    grid-area: text;
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
