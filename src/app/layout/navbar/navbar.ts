@@ -1,10 +1,9 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
-  HostListener,
-  OnInit,
-  signal,
   computed,
+  signal,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -23,9 +22,10 @@ interface NavLink {
     '[class.scrolled]': 'isScrolled()',
     '[class.menu-open]': 'mobileMenuOpen()',
     role: 'banner',
+    '(window:scroll)': 'onScroll()',
   },
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   protected readonly links: NavLink[] = [
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'About',     path: '/about' },
@@ -40,12 +40,13 @@ export class NavbarComponent implements OnInit {
     this.mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'
   );
 
-  ngOnInit(): void {
-    this.isScrolled.set(window.scrollY > 20);
+  constructor() {
+    afterNextRender(() => {
+      this.isScrolled.set(window.scrollY > 20);
+    });
   }
 
-  @HostListener('window:scroll')
-  onScroll(): void {
+  protected onScroll(): void {
     this.isScrolled.set(window.scrollY > 20);
   }
 
