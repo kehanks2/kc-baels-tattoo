@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { fromEvent, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-scroll-to-top',
@@ -19,17 +17,20 @@ import { fromEvent, map, startWith } from 'rxjs';
 })
 export class ScrollToTopComponent {
   private readonly document = inject(DOCUMENT);
-  private readonly win = this.document.defaultView;
+  private readonly destroyRef = inject(DestroyRef);
+  readonly visible = signal(false);
 
-  readonly visible = toSignal(
-    fromEvent(this.win!, 'scroll').pipe(
-      map(() => (this.win?.scrollY ?? 0) > 300),
-      startWith(false)
-    ),
-    { initialValue: false }
-  );
+  constructor() {
+    afterNextRender(() => {
+      const win = this.document.defaultView;
+      if (!win) return;
+      const onScroll = () => this.visible.set(win.scrollY > 300);
+      win.addEventListener('scroll', onScroll, { passive: true });
+      this.destroyRef.onDestroy(() => win.removeEventListener('scroll', onScroll));
+    });
+  }
 
   scrollToTop(): void {
-    this.win?.scrollTo({ top: 0, behavior: 'smooth' });
+    this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

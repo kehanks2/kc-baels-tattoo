@@ -12,8 +12,6 @@
   &__bg {
     position: absolute;
     inset: 0;
-    // Replace with actual background-image once assets are in place:
-    // background-image: url('/assets/images/hero-bg.webp');
     background-color: var(--color-bg-secondary);
     background-size: cover;
     background-position: center;

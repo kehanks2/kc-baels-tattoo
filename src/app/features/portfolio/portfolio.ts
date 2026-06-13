@@ -2,11 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  PLATFORM_ID,
   computed,
   effect,
   inject,
   signal,
 } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { FilterOption } from '../../core/models/portfolio-item.model';
 import { PortfolioService } from '../../core/services/portfolio.service';
 import { FilterComponent } from './filter/filter';
@@ -23,6 +25,8 @@ import { LightboxComponent } from './lightbox/lightbox';
 export class PortfolioComponent {
   private readonly portfolioService = inject(PortfolioService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly activeCategory = signal<FilterOption>('all');
   readonly lightboxIndex = signal<number | null>(null);
@@ -35,11 +39,15 @@ export class PortfolioComponent {
 
   constructor() {
     effect(() => {
-      document.body.style.overflow = this.lightboxIndex() !== null ? 'hidden' : '';
+      if (isPlatformBrowser(this.platformId)) {
+        this.document.body.style.overflow = this.lightboxIndex() !== null ? 'hidden' : '';
+      }
     });
 
     this.destroyRef.onDestroy(() => {
-      document.body.style.overflow = '';
+      if (isPlatformBrowser(this.platformId)) {
+        this.document.body.style.overflow = '';
+      }
     });
   }
 
