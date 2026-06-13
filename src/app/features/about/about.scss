@@ -1,6 +1,7 @@
 // ── Page Banner ───────────────────────────────────────────────────────────────
 .about-banner {
   position: relative;
+  width: 100%;
   aspect-ratio: 21 / 8;
   min-height: calc(var(--nav-height) + 180px);
   display: flex;
