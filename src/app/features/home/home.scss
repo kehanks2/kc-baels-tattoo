@@ -71,9 +71,20 @@
     aspect-ratio: 4 / 5;
     overflow: hidden;
     border-radius: var(--border-radius);
+    background-color: var(--color-bg-secondary);
+    transform: translateZ(0);
 
     img {
       object-fit: cover;
+      filter: contrast(1.2);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 15, 16, 0.25);
+      pointer-events: none;
     }
   }
 
