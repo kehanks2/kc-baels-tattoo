@@ -34,7 +34,7 @@ export class PortfolioService {
   private readonly http = inject(HttpClient);
 
   private readonly _items = toSignal(
-    this.http.get<PortfolioImageDto[]>('/api/portfolio').pipe(
+    this.http.get<PortfolioImageDto[]>('/assets/portfolio/portfolio.json').pipe(
       map(dtos => dtos.map(toItem)),
       catchError(() => of([] as PortfolioItem[]))
     )
