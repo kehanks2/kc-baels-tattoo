@@ -5,10 +5,19 @@ import { HeroComponent } from './hero/hero';
 import { PortfolioService } from '../../core/services/portfolio.service';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header';
 
+/**
+ * A real client review, copied from its source with the reviewer's words
+ * unchanged. Only add reviews that actually exist; the section is hidden
+ * while this list is empty.
+ */
 interface Testimonial {
   quote: string;
+  /** As shown on the source, e.g. "Sarah M." */
   author: string;
-  location: string;
+  /** Where the review was posted, e.g. "Google". */
+  source: string;
+  /** Link to the review or the listing it was posted on. */
+  sourceUrl?: string;
 }
 
 @Component({
@@ -23,21 +32,6 @@ export class HomeComponent {
   private readonly portfolioService = inject(PortfolioService);
   readonly featuredItems = computed(() => this.portfolioService.featured());
 
-  readonly testimonials: Testimonial[] = [
-    {
-      quote: 'Baels took my rough idea and turned it into something I never could have imagined. The attention to detail is unreal.',
-      author: 'Sarah M.',
-      location: 'Austin, TX',
-    },
-    {
-      quote: 'Best tattoo experience I\'ve ever had. Baels spent real time understanding what I wanted before a single line was drawn.',
-      author: 'James R.',
-      location: 'Round Rock, TX',
-    },
-    {
-      quote: 'I was nervous about my first tattoo but Baels made the whole process feel easy. The result is exactly what I pictured.',
-      author: 'Kayla D.',
-      location: 'Pflugerville, TX',
-    },
-  ];
+  // Placeholder testimonials removed. Add real Google reviews here.
+  readonly testimonials: Testimonial[] = [];
 }
