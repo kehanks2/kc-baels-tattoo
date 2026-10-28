@@ -7,10 +7,11 @@ import {
   effect,
   inject,
   linkedSignal,
+  signal,
 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { findFilter } from '../../core/models/portfolio-filters';
+import { PortfolioFilter, findFilter } from '../../core/models/portfolio-filters';
 import { PortfolioService } from '../../core/services/portfolio.service';
 import { FilterComponent } from './filter/filter';
 import { GridComponent } from './grid/grid';
@@ -19,8 +20,10 @@ import { LightboxComponent } from './lightbox/lightbox';
 /**
  * Serves three kinds of route:
  * - /portfolio/                 all work
- * - /portfolio/<filter>/        one filter (route data `filter`)
+ * - /portfolio/<filter>/        all work, with that filter preselected (route data `filter`)
  * - /tattoos/<slug>/            all work, with that piece open in the lightbox
+ *
+ * Filter chips filter in place and never change the URL.
  */
 @Component({
   selector: 'app-portfolio',
@@ -37,12 +40,20 @@ export class PortfolioComponent {
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
 
-  readonly activeFilter = findFilter(this.route.snapshot.data['filter']);
+  /** Filter preselected by the URL (/portfolio/<filter>/), if any. */
+  private readonly routeFilter = findFilter(this.route.snapshot.data['filter']);
   private readonly pieceSlug = this.route.snapshot.paramMap.get('slug');
+
+  readonly activeFilter = signal<PortfolioFilter | null>(this.routeFilter);
+
+  /** The filter-specific heading and intro show only while the URL's filter is active. */
+  readonly headerFilter = computed(() =>
+    this.routeFilter && this.activeFilter() === this.routeFilter ? this.routeFilter : null
+  );
 
   readonly loading = computed(() => this.portfolioService.items() === undefined);
 
-  readonly filteredItems = computed(() => this.portfolioService.byFilter(this.activeFilter));
+  readonly filteredItems = computed(() => this.portfolioService.byFilter(this.activeFilter()));
 
   readonly piece = computed(() =>
     this.pieceSlug ? this.filteredItems().find(i => i.slug === this.pieceSlug) ?? null : null
@@ -65,6 +76,11 @@ export class PortfolioComponent {
         this.document.body.style.overflow = '';
       }
     });
+  }
+
+  onFilterChange(slug: string | null): void {
+    this.activeFilter.set(findFilter(slug));
+    this.lightboxIndex.set(null);
   }
 
   onItemClick(index: number): void {

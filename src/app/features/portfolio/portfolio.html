@@ -1,8 +1,8 @@
 <section class="section portfolio-page" aria-labelledby="portfolio-heading">
 
   <div class="container">
-    <p class="section-label">{{ activeFilter || piece() ? 'Portfolio' : 'Gallery' }}</p>
-    @if (activeFilter; as filter) {
+    <p class="section-label">{{ headerFilter() || piece() ? 'Portfolio' : 'Gallery' }}</p>
+    @if (headerFilter(); as filter) {
       <h1 class="section-title" id="portfolio-heading">{{ filter.heading }}</h1>
       <p class="portfolio-intro">
         {{ filter.intro }}
@@ -24,7 +24,10 @@
   </div>
 
   <div class="container">
-    <app-filter [active]="activeFilter?.slug ?? null" />
+    <app-filter
+      [active]="activeFilter()?.slug ?? null"
+      (filterChange)="onFilterChange($event)"
+    />
 
     @if (loading()) {
       <div class="portfolio-loading" aria-label="Loading portfolio" role="status">
