@@ -1,18 +1,32 @@
 <section class="section portfolio-page" aria-labelledby="portfolio-heading">
 
   <div class="container">
-    <p class="section-label">Gallery</p>
-    <h1 class="section-title" id="portfolio-heading">Portfolio</h1>
-    <p class="portfolio-intro">
-      Every piece starts with a conversation. Browse the work below, then
-      <a routerLink="/booking">book a consultation</a> to start yours.
-    </p>
+    <p class="section-label">{{ headerFilter() || piece() ? 'Portfolio' : 'Gallery' }}</p>
+    @if (headerFilter(); as filter) {
+      <h1 class="section-title" id="portfolio-heading">{{ filter.heading }}</h1>
+      <p class="portfolio-intro">
+        {{ filter.intro }}
+        Ready for yours? <a routerLink="/booking">Book a consultation</a>.
+      </p>
+    } @else if (piece(); as p) {
+      <h1 class="section-title" id="portfolio-heading">{{ p.title }} Tattoo</h1>
+      <p class="portfolio-intro">
+        {{ p.alt }} by Baels at Flying Tiger Tattoo in Austin, TX.
+        <a routerLink="/booking">Book a consultation</a> to start yours.
+      </p>
+    } @else {
+      <h1 class="section-title" id="portfolio-heading">Portfolio</h1>
+      <p class="portfolio-intro">
+        Every piece starts with a conversation. Browse the work below, then
+        <a routerLink="/booking">book a consultation</a> to start yours.
+      </p>
+    }
   </div>
 
   <div class="container">
     <app-filter
-      [active]="activeCategory()"
-      (categoryChange)="onCategoryChange($event)"
+      [active]="activeFilter()?.slug ?? null"
+      (filterChange)="onFilterChange($event)"
     />
 
     @if (loading()) {

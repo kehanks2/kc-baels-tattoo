@@ -1,13 +1,13 @@
-<nav class="filter-bar" role="tablist" aria-label="Filter portfolio by style">
-  @for (option of options; track option.value) {
-    <button
-      role="tab"
+<nav class="filter-bar" aria-label="Filter portfolio by style">
+  @for (option of options; track option.href) {
+    <a
       class="filter-btn"
-      [class.active]="active() === option.value"
-      [attr.aria-selected]="active() === option.value"
-      (click)="select(option.value)"
+      [href]="option.href"
+      [class.active]="active() === option.slug"
+      [attr.aria-current]="active() === option.slug ? 'true' : null"
+      (click)="select($event, option.slug)"
     >
       {{ option.label }}
-    </button>
+    </a>
   }
 </nav>

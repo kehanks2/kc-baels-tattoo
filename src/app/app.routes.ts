@@ -1,5 +1,13 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell';
+import { PORTFOLIO_FILTERS } from './core/models/portfolio-filters';
+import {
+  pieceDescriptionResolver,
+  pieceTitleResolver,
+} from './features/portfolio/portfolio.resolvers';
+
+const loadPortfolio = () =>
+  import('./features/portfolio/portfolio').then((m) => m.PortfolioComponent);
 
 export const routes: Routes = [
   {
@@ -17,12 +25,26 @@ export const routes: Routes = [
       },
       {
         path: 'portfolio',
-        loadComponent: () =>
-          import('./features/portfolio/portfolio').then((m) => m.PortfolioComponent),
+        loadComponent: loadPortfolio,
         title: 'Portfolio — Baels Tattoo',
         data: {
           description: 'Browse the portfolio of Baels in Austin, TX — neotraditional, traditional, black & grey, illustrative, and script work at Flying Tiger Tattoo.',
         },
+      },
+      // One prerendered page per portfolio filter, e.g. /portfolio/traditional/
+      ...PORTFOLIO_FILTERS.map((filter) => ({
+        path: `portfolio/${filter.slug}`,
+        loadComponent: loadPortfolio,
+        title: filter.title,
+        data: { description: filter.description, filter: filter.slug },
+      })),
+      // Single-piece pages (not linked in the UI): open the portfolio with
+      // the piece in the lightbox. Prerendered via app.routes.server.ts.
+      {
+        path: 'tattoos/:slug',
+        loadComponent: loadPortfolio,
+        title: pieceTitleResolver,
+        resolve: { description: pieceDescriptionResolver },
       },
       {
         path: 'about',

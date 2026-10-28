@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   padding-top: var(--nav-height);
-  background-image: url('/assets/about/kc-tattooing-studio.jpeg');
+  background-image: url('/assets/about/kc-tattooing-studio.webp');
   background-color: var(--color-bg-secondary);
   background-size: cover;
   background-position: center 40%;
@@ -164,6 +164,16 @@
 
   &__history {
     max-width: 680px;
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+}
+
+// ── Location ──────────────────────────────────────────────────────────────────
+.about-location {
+  &__text {
+    max-width: 680px;
+    margin-top: var(--space-lg);
     font-size: 1rem;
     line-height: 1.9;
   }
