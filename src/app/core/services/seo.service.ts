@@ -35,7 +35,7 @@ export class SeoService {
 
   private absoluteUrl(path: string): string {
     const clean = (path.split(/[?#]/)[0] || '/').replace(/\/+$/, '');
-    return clean === '' ? `${SITE_ORIGIN}/` : `${SITE_ORIGIN}${clean}`;
+    return `${SITE_ORIGIN}${clean}/`;
   }
 
   private setCanonical(url: string): void {
