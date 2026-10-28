@@ -40,7 +40,8 @@ export class ShellComponent {
       const snapshot = route?.snapshot;
       const title = typeof snapshot?.title === 'string' ? snapshot.title : '';
       const description = snapshot?.data['description'] ?? '';
-      seo.update(title, description);
+      const indexable = snapshot?.routeConfig?.path !== '**';
+      seo.update(title, description, router.url, indexable);
     });
   }
 }
