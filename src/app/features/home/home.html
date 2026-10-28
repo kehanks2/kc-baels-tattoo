@@ -7,7 +7,7 @@
     <div class="featured-strip__grid">
       @for (item of featuredItems(); track item.id) {
         <a routerLink="/portfolio" class="featured-strip__item" [attr.aria-label]="item.alt">
-          <img [ngSrc]="item.src" [alt]="item.alt" fill />
+          <img [ngSrc]="item.src" ngSrcset="600w, 1200w" sizes="(max-width: 768px) 50vw, 25vw" [alt]="item.alt" fill />
         </a>
       }
     </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="about-preview__image-col" aria-hidden="true">
       <div class="about-preview__image-wrap">
-        <img ngSrc="/assets/about/kc-tattooing-client.jpeg" alt="Baels tattooing a client at Flying Tiger Tattoo" fill />
+        <img ngSrc="/assets/about/kc-tattooing-client.webp" alt="Baels tattooing a client at Flying Tiger Tattoo" fill />
       </div>
     </div>
     <div class="about-preview__text-col">

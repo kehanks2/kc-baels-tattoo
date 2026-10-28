@@ -1,15 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of } from 'rxjs';
-import { FilterOption, PortfolioCategory, PortfolioItem } from '../models/portfolio-item.model';
+import { Observable, catchError, map, of, shareReplay } from 'rxjs';
+import { PortfolioCategory, PortfolioItem, PortfolioStyle } from '../models/portfolio-item.model';
+import { PortfolioFilter } from '../models/portfolio-filters';
 
 interface PortfolioImageDto {
   id: number;
+  slug: string;
   imageUrl: string;
   altText: string;
   title: string | null;
   category: string;
+  styles?: string[];
   showOnHomepage: boolean;
   displayOrder: number;
   width: number;
@@ -19,10 +22,12 @@ interface PortfolioImageDto {
 function toItem(dto: PortfolioImageDto): PortfolioItem {
   return {
     id: dto.id,
+    slug: dto.slug,
     src: dto.imageUrl,
     alt: dto.altText,
     title: dto.title ?? undefined,
     category: dto.category as PortfolioCategory,
+    styles: (dto.styles ?? []) as PortfolioStyle[],
     featured: dto.showOnHomepage,
     width: dto.width,
     height: dto.height,
@@ -33,21 +38,23 @@ function toItem(dto: PortfolioImageDto): PortfolioItem {
 export class PortfolioService {
   private readonly http = inject(HttpClient);
 
-  private readonly _items = toSignal(
-    this.http.get<PortfolioImageDto[]>('/assets/portfolio/portfolio.json').pipe(
+  /** Shared, cached stream of portfolio items (used by route resolvers). */
+  readonly items$: Observable<PortfolioItem[]> = this.http
+    .get<PortfolioImageDto[]>('/assets/portfolio/portfolio.json')
+    .pipe(
       map(dtos => dtos.map(toItem)),
-      catchError(() => of([] as PortfolioItem[]))
-    )
-  );
+      catchError(() => of([] as PortfolioItem[])),
+      shareReplay(1),
+    );
 
-  readonly items = this._items;
+  readonly items = toSignal(this.items$);
 
-  byCategory(category: FilterOption): PortfolioItem[] {
-    const all = this._items() ?? [];
-    return category === 'all' ? all : all.filter(i => i.category === category);
+  byFilter(filter: PortfolioFilter | null): PortfolioItem[] {
+    const all = this.items() ?? [];
+    return filter ? all.filter(filter.matches) : all;
   }
 
   featured(): PortfolioItem[] {
-    return (this._items() ?? []).filter(i => i.featured);
+    return (this.items() ?? []).filter(i => i.featured);
   }
 }

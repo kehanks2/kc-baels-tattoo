@@ -1,24 +1,24 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { CATEGORY_LABELS, FilterOption } from '../../../core/models/portfolio-item.model';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { PORTFOLIO_FILTERS } from '../../../core/models/portfolio-filters';
 
+/**
+ * Filter chips. Each chip is a real link to a prerendered filter page
+ * (/portfolio/<slug>/), so search engines can discover every filtered view.
+ */
 @Component({
   selector: 'app-filter',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './filter.html',
   styleUrl: './filter.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent {
-  readonly active = input<FilterOption>('all');
-  readonly categoryChange = output<FilterOption>();
+  /** Active filter slug, or null for "All Work". */
+  readonly active = input<string | null>(null);
 
-  readonly options: { value: FilterOption; label: string }[] = [
-    { value: 'all',        label: 'All Work' },
-    { value: 'black-grey', label: CATEGORY_LABELS['black-grey'] },
-    { value: 'color',      label: CATEGORY_LABELS['color'] },
+  readonly options: { slug: string | null; label: string; link: string }[] = [
+    { slug: null, label: 'All Work', link: '/portfolio' },
+    ...PORTFOLIO_FILTERS.map(f => ({ slug: f.slug, label: f.label, link: `/portfolio/${f.slug}` })),
   ];
-
-  select(value: FilterOption): void {
-    this.categoryChange.emit(value);
-  }
 }

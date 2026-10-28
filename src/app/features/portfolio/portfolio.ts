@@ -6,36 +6,52 @@ import {
   computed,
   effect,
   inject,
-  signal,
+  linkedSignal,
 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { FilterOption } from '../../core/models/portfolio-item.model';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { findFilter } from '../../core/models/portfolio-filters';
 import { PortfolioService } from '../../core/services/portfolio.service';
 import { FilterComponent } from './filter/filter';
 import { GridComponent } from './grid/grid';
 import { LightboxComponent } from './lightbox/lightbox';
 
+/**
+ * Serves three kinds of route:
+ * - /portfolio/                 all work
+ * - /portfolio/<filter>/        one filter (route data `filter`)
+ * - /tattoos/<slug>/            all work, with that piece open in the lightbox
+ */
 @Component({
   selector: 'app-portfolio',
-  imports: [FilterComponent, GridComponent, LightboxComponent],
+  imports: [FilterComponent, GridComponent, LightboxComponent, RouterLink],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioComponent {
   private readonly portfolioService = inject(PortfolioService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
 
-  readonly activeCategory = signal<FilterOption>('all');
-  readonly lightboxIndex = signal<number | null>(null);
+  readonly activeFilter = findFilter(this.route.snapshot.data['filter']);
+  private readonly pieceSlug = this.route.snapshot.paramMap.get('slug');
 
   readonly loading = computed(() => this.portfolioService.items() === undefined);
 
-  readonly filteredItems = computed(() =>
-    this.portfolioService.byCategory(this.activeCategory())
+  readonly filteredItems = computed(() => this.portfolioService.byFilter(this.activeFilter));
+
+  readonly piece = computed(() =>
+    this.pieceSlug ? this.filteredItems().find(i => i.slug === this.pieceSlug) ?? null : null
   );
+
+  readonly lightboxIndex = linkedSignal<number | null>(() => {
+    const piece = this.piece();
+    return piece ? this.filteredItems().indexOf(piece) : null;
+  });
 
   constructor() {
     effect(() => {
@@ -51,16 +67,14 @@ export class PortfolioComponent {
     });
   }
 
-  onCategoryChange(category: FilterOption): void {
-    this.activeCategory.set(category);
-    this.lightboxIndex.set(null);
-  }
-
   onItemClick(index: number): void {
     this.lightboxIndex.set(index);
   }
 
   onLightboxClose(): void {
     this.lightboxIndex.set(null);
+    if (this.pieceSlug) {
+      this.router.navigateByUrl('/portfolio');
+    }
   }
 }

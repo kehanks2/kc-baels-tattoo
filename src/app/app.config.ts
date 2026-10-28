@@ -15,12 +15,15 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    // Passthrough loader — returns the src URL as-is.
-    // Replace with a CDN-specific loader (e.g. provideCloudinaryLoader) once
-    // real images are hosted behind a CDN.
+    // Portfolio images ship in two WebP sizes: <name>.webp (up to 1200px wide)
+    // and <name>-600.webp. Requests for 600w get the small file; everything
+    // else is passed through unchanged.
     {
       provide: IMAGE_LOADER,
-      useValue: (config: ImageLoaderConfig) => config.src,
+      useValue: (config: ImageLoaderConfig) =>
+        config.width && config.width <= 600 && config.src.startsWith('/assets/portfolio/images/')
+          ? config.src.replace(/\.webp$/, '-600.webp')
+          : config.src,
     },
   ],
 };

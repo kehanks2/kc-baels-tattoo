@@ -1,1 +1,16 @@
-/*  /index.html  200
+# Every page is prerendered, so there is no SPA fallback here. Unknown URLs
+# get public/404.html with a real 404 status from Cloudflare Pages.
+
+# Vanity URLs for portfolio filters (for bios, print, and social posts).
+/black-and-grey-tattoo-austin        /portfolio/black-and-grey/  301
+/black-and-grey-tattoo-austin/       /portfolio/black-and-grey/  301
+/color-tattoo-austin                 /portfolio/color/  301
+/color-tattoo-austin/                /portfolio/color/  301
+/traditional-tattoo-austin           /portfolio/traditional/  301
+/traditional-tattoo-austin/          /portfolio/traditional/  301
+/neotraditional-tattoo-austin        /portfolio/neotraditional/  301
+/neotraditional-tattoo-austin/       /portfolio/neotraditional/  301
+/illustrative-tattoo-austin          /portfolio/illustrative/  301
+/illustrative-tattoo-austin/         /portfolio/illustrative/  301
+/anime-tattoo-austin                 /portfolio/anime/  301
+/anime-tattoo-austin/                /portfolio/anime/  301
