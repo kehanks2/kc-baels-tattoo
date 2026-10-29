@@ -25,5 +25,7 @@ export interface PortfolioItem {
   category: PortfolioCategory;
   styles:   PortfolioStyle[];
   title?:   string;
+  /** Optional one or two sentence description shown in the lightbox and on the piece page. */
+  story?:   string;
   featured?: boolean;
 }

@@ -11,6 +11,7 @@ interface PortfolioImageDto {
   imageUrl: string;
   altText: string;
   title: string | null;
+  story?: string;
   category: string;
   styles?: string[];
   showOnHomepage: boolean;
@@ -26,6 +27,7 @@ function toItem(dto: PortfolioImageDto): PortfolioItem {
     src: dto.imageUrl,
     alt: dto.altText,
     title: dto.title ?? undefined,
+    story: dto.story,
     category: dto.category as PortfolioCategory,
     styles: (dto.styles ?? []) as PortfolioStyle[],
     featured: dto.showOnHomepage,

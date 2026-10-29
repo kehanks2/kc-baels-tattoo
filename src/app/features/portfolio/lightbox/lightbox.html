@@ -33,6 +33,9 @@
             <p class="caption-title">{{ item.title }}</p>
           }
           <p class="caption-category">{{ categoryLabels[item.category] }}</p>
+          @if (item.story) {
+            <p class="caption-story">{{ item.story }}</p>
+          }
           @if (items().length > 1) {
             <p class="caption-counter">{{ currentIndex() + 1 }} / {{ items().length }}</p>
           }

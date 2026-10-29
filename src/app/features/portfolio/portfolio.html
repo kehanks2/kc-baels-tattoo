@@ -11,7 +11,7 @@
     } @else if (piece(); as p) {
       <h1 class="section-title" id="portfolio-heading">{{ p.title }} Tattoo</h1>
       <p class="portfolio-intro">
-        {{ p.alt }} by Baels at Flying Tiger Tattoo in Austin, TX.
+        {{ p.story ?? p.alt + '.' }} Tattooed by Baels at Flying Tiger Tattoo in Austin, TX.
         <a routerLink="/booking">Book a consultation</a> to start yours.
       </p>
     } @else {
@@ -42,6 +42,18 @@
   </div>
 
 </section>
+
+@if (headerFilter(); as filter) {
+  <section class="section portfolio-about" aria-labelledby="portfolio-about-heading">
+    <div class="container">
+      <h2 class="portfolio-about__heading" id="portfolio-about-heading">{{ filter.heading }} in Austin</h2>
+      @for (paragraph of filter.body; track $index) {
+        <p class="portfolio-about__text">{{ paragraph }}</p>
+      }
+      <a class="btn btn-primary" routerLink="/booking">Book a Consultation</a>
+    </div>
+  </section>
+}
 
 @if (lightboxIndex() !== null) {
   <app-lightbox
