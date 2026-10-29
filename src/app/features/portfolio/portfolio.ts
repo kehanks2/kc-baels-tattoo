@@ -9,10 +9,12 @@ import {
   linkedSignal,
   signal,
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, Location, isPlatformBrowser } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PortfolioFilter, findFilter } from '../../core/models/portfolio-filters';
 import { PortfolioService } from '../../core/services/portfolio.service';
+import { SeoService } from '../../core/services/seo.service';
 import { FilterComponent } from './filter/filter';
 import { GridComponent } from './grid/grid';
 import { LightboxComponent } from './lightbox/lightbox';
@@ -23,7 +25,10 @@ import { LightboxComponent } from './lightbox/lightbox';
  * - /portfolio/<filter>/        all work, with that filter preselected (route data `filter`)
  * - /tattoos/<slug>/            all work, with that piece open in the lightbox
  *
- * Filter chips filter in place and never change the URL.
+ * Filter chips filter in place without navigating. On /portfolio/ the URL never
+ * changes. On a filter URL, picking a different filter swaps the address back to
+ * /portfolio/ (history.replaceState, no navigation or scroll) and resets the title
+ * and SEO tags to match, since the page no longer shows that filter's copy.
  */
 @Component({
   selector: 'app-portfolio',
@@ -39,6 +44,9 @@ export class PortfolioComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly location = inject(Location);
+  private readonly titleService = inject(Title);
+  private readonly seo = inject(SeoService);
 
   /** Filter preselected by the URL (/portfolio/<filter>/), if any. */
   private readonly routeFilter = findFilter(this.route.snapshot.data['filter']);
@@ -46,10 +54,11 @@ export class PortfolioComponent {
 
   readonly activeFilter = signal<PortfolioFilter | null>(this.routeFilter);
 
-  /** The filter-specific heading and intro show only while the URL's filter is active. */
-  readonly headerFilter = computed(() =>
-    this.routeFilter && this.activeFilter() === this.routeFilter ? this.routeFilter : null
-  );
+  /** True while the address bar still shows the filter URL this page was opened on. */
+  private readonly onFilterUrl = signal(this.routeFilter !== null);
+
+  /** The filter-specific heading, intro and copy show only while on that filter's URL. */
+  readonly headerFilter = computed(() => (this.onFilterUrl() ? this.routeFilter : null));
 
   readonly loading = computed(() => this.portfolioService.items() === undefined);
 
@@ -79,8 +88,27 @@ export class PortfolioComponent {
   }
 
   onFilterChange(slug: string | null): void {
-    this.activeFilter.set(findFilter(slug));
+    const filter = findFilter(slug);
+    this.activeFilter.set(filter);
     this.lightboxIndex.set(null);
+
+    if (this.onFilterUrl() && filter !== this.routeFilter) {
+      this.onFilterUrl.set(false);
+      this.showPortfolioUrl();
+    }
+  }
+
+  /** Points the address bar, title and SEO tags at /portfolio/ without navigating. */
+  private showPortfolioUrl(): void {
+    const portfolioRoute = this.router.config
+      .flatMap(r => r.children ?? [r])
+      .find(r => r.path === 'portfolio');
+    const title = typeof portfolioRoute?.title === 'string' ? portfolioRoute.title : 'Portfolio';
+    const description = portfolioRoute?.data?.['description'] ?? '';
+
+    this.titleService.setTitle(title);
+    this.seo.update(title, description, '/portfolio');
+    this.location.replaceState('/portfolio/');
   }
 
   onItemClick(index: number): void {
