@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeroComponent } from './hero/hero';
 import { PortfolioService } from '../../core/services/portfolio.service';
+import { GOOGLE_PROFILE_URL, GOOGLE_REVIEW_URL } from '../../core/constants/google-profile';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header';
 
 /**
@@ -33,6 +34,9 @@ export class HomeComponent {
   readonly featuredItems = computed(() => this.portfolioService.featured());
 
   // Real Google reviews, trimmed with ellipses; wording otherwise unchanged.
+  readonly reviewUrl = GOOGLE_REVIEW_URL;
+  readonly profileUrl = GOOGLE_PROFILE_URL;
+
   readonly testimonials: Testimonial[] = [
     {
       quote: 'Baels has done all of my tattoos, and I wouldn’t trust anyone else with my ink. His work is always top-notch, he’s fast without sacrificing quality, and every piece has come out better than I expected.',
