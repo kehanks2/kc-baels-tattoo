@@ -136,6 +136,13 @@
   color: var(--color-accent);
 }
 
+.caption-story {
+  max-width: 52ch;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
 .caption-counter {
   font-size: 0.75rem;
   color: var(--color-text-muted);

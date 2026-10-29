@@ -24,7 +24,7 @@ export const pieceDescriptionResolver: ResolveFn<string> = route =>
   findPiece(route).pipe(
     map(piece =>
       piece
-        ? `${piece.alt} by Baels at Flying Tiger Tattoo in Austin, TX.`
+        ? `${piece.story ?? piece.alt + '.'} Tattooed by Baels at Flying Tiger Tattoo in Austin, TX.`
         : 'Browse the portfolio of Baels at Flying Tiger Tattoo in Austin, TX.',
     ),
   );
